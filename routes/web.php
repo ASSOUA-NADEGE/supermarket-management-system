@@ -5,6 +5,9 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
+
+
+
 Route::prefix('breeze')->group(function () {
     Route::get('/', function () {
         return Inertia::render('Welcome', [
