@@ -5,8 +5,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-
-
+Route::get('/',[\App\Http\Controllers\WelcomeController::class,'landing'])->name('landing');
 
 Route::prefix('breeze')->group(function () {
     Route::get('/', function () {
