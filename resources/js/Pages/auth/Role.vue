@@ -48,8 +48,8 @@
 import { reactive, ref } from "vue";
 import { router } from "@inertiajs/vue3";
 import { debounce } from "lodash";
-import Modal from "../../Components/Modal.vue";
-import TextInput from "../../Components/TextInput.vue";
+import Modal from "../../Components/Breeze/Modal.vue";
+import TextInput from "../../Components/Breeze/TextInput.vue";
 
 defineProps<{ role: string }>();
 const showPassword = ref(false);
