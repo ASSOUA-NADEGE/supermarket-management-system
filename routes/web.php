@@ -5,7 +5,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get('/',[\App\Http\Controllers\WelcomeController::class,'landing'])->name('landing');
+Route::get('/', [\App\Http\Controllers\WelcomeController::class, 'landing'])->name('landing');
 
 Route::prefix('breeze')->group(function () {
     Route::get('/', function () {
@@ -27,4 +27,9 @@ Route::prefix('breeze')->group(function () {
         Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     });
     require __DIR__ . '/auth.php';
+});
+
+Route::prefix('auth')->group(function () {
+    Route::inertia('/', 'auth/Home');
+    Route::get('/{role}', fn ($role) => inertia('auth/Role', compact('role')));
 });
