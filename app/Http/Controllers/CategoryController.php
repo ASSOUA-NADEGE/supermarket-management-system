@@ -13,7 +13,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return inertia('Category/Index',['categories'=>Category::all()]);
+        return inertia('Category/Index', ['categories' => Category::all()]);
     }
 
     /**
@@ -29,10 +29,11 @@ class CategoryController extends Controller
      */
     public function store(StoreCategoryRequest $request)
     {
-        $category = new Category();
-        $category->name = $request->name;
-        $category->description = $request->description;
-        $category->save();
+
+        Category::create([
+            "name" => $request->name,
+            "description" => $request->description
+        ]);
         return redirect()->route('category.index');
     }
 
@@ -41,7 +42,7 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        return inertia('Category/Show',['category'=>$category]);
+        return inertia('Category/Show', ['category' => $category]);
     }
 
     /**
@@ -49,7 +50,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        return inertia('Category/Edit',['category'=>$category]);
+        return inertia('Category/Edit', ['category' => $category]);
     }
 
     /**
@@ -57,9 +58,10 @@ class CategoryController extends Controller
      */
     public function update(UpdateCategoryRequest $request, Category $category)
     {
-        $category->name = $request->name;
-        $category->description = $request->description;
-        $category->save();
+        $category->update([
+            "name" => $request->name,
+            "description" => $request->description
+        ]);
         return redirect()->route('category.index');
     }
 

@@ -13,7 +13,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return inertia('Product/Index',['products'=>Product::all()]);
+        return inertia('Product/Index', ['products' => Product::all()]);
     }
 
     /**
@@ -29,12 +29,14 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request)
     {
-        $product = new Product();
-        $product->name = $request->name;
-        $product->description = $request->description;
-        $product->price = $request->price;
-        $product->category_id = $request->category_id;
-        $product->save();
+
+        Product::create([
+            "name" => $request->name,
+            "description" => $request->description,
+            "price" => $request->price,
+            "category_id" => $request->category_id,
+            "image" => $request->image ? $request->file('image')->store('public') : null
+        ]);
         return redirect()->route('product.index');
     }
 
@@ -43,7 +45,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        return inertia('Product/Show',['product'=>$product]);
+        return inertia('Product/Show', ['product' => $product]);
     }
 
     /**
@@ -51,7 +53,7 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        return inertia('Product/Edit',['product'=>$product]);
+        return inertia('Product/Edit', ['product' => $product]);
     }
 
     /**
@@ -59,11 +61,15 @@ class ProductController extends Controller
      */
     public function update(UpdateProductRequest $request, Product $product)
     {
-        $product->name = $request->name;
-        $product->description = $request->description;
-        $product->price = $request->price;
-        $product->category_id = $request->category_id;
-        $product->save();
+
+        $product->update([
+            'name' => $request->name,
+            'description' => $request->description,
+            'price' => $request->price,
+            'category_id' => $request->category_id,
+            'image' => $request->image ? $request->file('image')->store('public') : $product->image
+        ]);
+
         return redirect()->route('product.index');
     }
 
