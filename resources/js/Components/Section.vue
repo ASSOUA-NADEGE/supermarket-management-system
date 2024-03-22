@@ -11,7 +11,7 @@ const classes = computed(() => ({
 
 <template>
     <div :class="[classes]">
-        <div class="container mx-auto">
+        <div class="container mx-auto px-4 lg:px-0">
             <slot/>
         </div>
     </div>

@@ -7,7 +7,7 @@ import IconField from "primevue/iconfield";
 
 <template>
     <Section variant="primary" class="py-20 ">
-        <div class="w-1/4">
+        <div class="w-1/3">
             <h2>Order for your product in our supermarket</h2>
         </div>
         <IconField iconPosition="left">

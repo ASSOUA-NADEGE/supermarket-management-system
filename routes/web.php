@@ -1,11 +1,15 @@
 <?php
 
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\WelcomeController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get('/', [\App\Http\Controllers\WelcomeController::class, 'landing'])->name('landing');
+Route::get('/', [WelcomeController::class, 'landing'])->name('landing');
+//Route::get('/products', [ProductController::class, 'index'])->name('products');
+Route::resource('products',ProductController::class);
 
 Route::prefix('breeze')->group(function () {
     Route::get('/', function () {

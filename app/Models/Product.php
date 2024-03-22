@@ -10,8 +10,8 @@ class Product extends Model
 {
     use HasFactory;
     protected $guarded = [];
-
-    public function categories(): BelongsTo
+    protected $with = ['category'];
+    public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
     }
