@@ -13,28 +13,26 @@ class PermissionSeeder extends Seeder
      */
     public function run(): void
     {
-         $permission = collect([
-            'view_dashboard',
-            'view_users',
-            'view_categories',
-            'view_products',
-            'view_orders',
-            'view_reports',
-            'view_settings',
-            'create_users',
-            'assign_roles',
-            'create_categories',
-            'update_categories',
-            'delete_categories',
-            'create_products',
-            'update_products',
-            'delete_products',
-            'create_orders',
-            'update_orders',
-            'delete_orders',
-        ]);
-
-         $permission->each(function ($permission) {
+        collect([
+            'view-dashboard',
+            'view-users',
+            'view-categories',
+            'view-products',
+            'view-orders',
+            'view-reports',
+            'view-settings',
+            'create-users',
+            'assign-roles',
+            'create-categories',
+            'update-categories',
+            'delete-categories',
+            'create-products',
+            'update-products',
+            'delete-products',
+            'create-orders',
+            'update-orders',
+            'delete-orders',
+        ])->each(function ($permission) {
             Permission::create(['name' => $permission]);
         });
     }

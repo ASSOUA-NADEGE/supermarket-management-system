@@ -14,19 +14,22 @@ class RoleSeeder extends Seeder
      */
     public function run(): void
     {
-        $roles = collect([
-            'admin',
-            'vendor',
-        ]);
-
-        $roles->each(function ($role) {
-            Role::create(['name' => $role]);
+        collect([
+            'admin' => Permission::all(),
+            'vendor' => [
+                'view-dashboard',
+                'view-orders',
+                'view-reports',
+                'view-settings',
+                'view-categories',
+                'view-products'
+            ],
+        ])->each(function ($permissions, $role) {
+            try {
+                Role::create(['name' => $role])?->givePermissionTo($permissions);
+            } catch (\Exception $e) {
+                dump("Error: Creating Role: ", $e->getMessage());
+            }
         });
-
-
-        $admin = Role::where('name', 'admin')->first();
-        $vendor = Role::where('name', 'vendor')->first();
-        $admin->givePermissionTo(Permission::all());
-        $vendor->givePermissionTo(['view_dashboard', 'view_orders', 'view_reports', 'view_settings', 'view_categories', 'view_products']);
     }
 }
