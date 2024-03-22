@@ -15,4 +15,7 @@
     .text-primary{
         color: var(--primary-color);
     }
+    li{
+        list-style: none;
+    }
 }
