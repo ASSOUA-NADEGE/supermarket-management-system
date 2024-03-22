@@ -12,7 +12,8 @@ class WelcomeController extends Controller
     {
         return inertia('Welcome',[
             "categories" => Category::all(),
-            "popular_products" => Product::all()->take(8),
+            "popular_products" => Product::all()->take(9),
+            "deals" => Product::all()->random(3)
         ]);
     }
 }
