@@ -9,7 +9,7 @@ use Inertia\Inertia;
 
 Route::get('/', [WelcomeController::class, 'landing'])->name('landing');
 //Route::get('/products', [ProductController::class, 'index'])->name('products');
-Route::resource('products',ProductController::class);
+Route::resource('products', ProductController::class);
 
 Route::prefix('breeze')->group(function () {
     Route::get('/', function () {
@@ -33,7 +33,9 @@ Route::prefix('breeze')->group(function () {
     require __DIR__ . '/auth.php';
 });
 
-Route::prefix('auth')->group(function () {
-    Route::inertia('/', 'auth/Home');
-    Route::get('/{role}', fn ($role) => inertia('auth/Role', compact('role')));
+Route::prefix('auth')->middleware('guest')->group(function () {
+    Route::controller(App\Http\Controllers\AuthenticationController::class)->group(function () {
+        Route::get('/', 'home');
+        Route::get('/{role}', 'role');
+    });
 });
