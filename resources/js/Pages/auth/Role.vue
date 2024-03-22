@@ -55,27 +55,9 @@ defineProps<{ users: Record<string, any> }>();
 const showPassword = ref(false);
 const currentUser = reactive({});
 const password = ref("");
-const roles = reactive({
-    admin: [
-        {
-            name: "Minister",
-            password: "!password",
-        },
-        {
-            name: "Jean",
-            password: "Pagouel",
-        },
-    ],
-    "sales-man": [
-        {
-            name: "Nadege",
-            password: "assoua",
-        },
-    ],
-});
 
 const handleLogin = () => {
-    console.error = "wobey";
+    console.error("wobey");
     if (password.value !== currentUser.password) return;
 
     router.visit("home");
