@@ -5,7 +5,7 @@
             <div class="grid grid-cols-3 gap-4">
                 <a
                     class="rounded border border-black flex items-center justify-center size-40 cursor-pointer hover:shadow hover:shadow-gray-400"
-                    v-for="user in roles[$props.role]"
+                    v-for="user in $props.users"
                     v-text="user.name"
                     @click="
                         [
@@ -51,7 +51,7 @@ import { debounce } from "lodash";
 import Modal from "../../Components/Breeze/Modal.vue";
 import TextInput from "../../Components/Breeze/TextInput.vue";
 
-defineProps<{ role: string }>();
+defineProps<{ users: Record<string, any> }>();
 const showPassword = ref(false);
 const currentUser = reactive({});
 const password = ref("");
