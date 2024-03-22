@@ -15,8 +15,8 @@ class UserSeeder extends Seeder
     {
         collect([
             'admin' => [
-                ['name' => 'minister', 'password' => '!password'],
-                ['name' => 'pagouel', 'password' => 'johntheboss']
+                ['name' => 'minister', 'password' => '!password', 'email' => 'mundestephane13@gmail.com'],
+                ['name' => 'pagouel', 'password' => 'johntheboss', 'email' => 'johnthbss@gmail.com']
             ],
             'vendor' => [
                 ['name' => 'nadege', 'password' => 'assoua']
