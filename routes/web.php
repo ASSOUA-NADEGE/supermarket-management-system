@@ -8,7 +8,8 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', [WelcomeController::class, 'landing'])->name('landing');
-Route::get('/products', [ProductController::class, 'index'])->name('products');
+//Route::get('/products', [ProductController::class, 'index'])->name('products');
+Route::resource('products',ProductController::class);
 
 Route::prefix('breeze')->group(function () {
     Route::get('/', function () {

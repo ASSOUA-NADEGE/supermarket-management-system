@@ -3,6 +3,7 @@ import Menubar from 'primevue/menubar';
 import {Link} from "@inertiajs/vue3"
 import Button from "primevue/button"
 import Section from "@/Components/Section.vue";
+import ScrollTop from "primevue/scrolltop";
 import {ref} from "vue";
 
 const items = ref([
@@ -47,6 +48,7 @@ const footerSections = [
 </script>
 
 <template>
+    <ScrollTop />
     <header class="container mx-auto">
         <Menubar :model="items" class="border-none">
             <template #start>
