@@ -5,9 +5,9 @@
             <div class="grid grid-cols-3 gap-4">
                 <a
                     class="rounded border border-black flex items-center justify-center size-40"
-                    :href="'/auth/' + kebabCase(role)"
-                    v-for="role in roles"
-                    v-text="role"
+                    :href="'/auth/' + kebabCase(role.name)"
+                    v-for="role in $props.roles"
+                    v-text="role.name"
                 ></a>
             </div>
         </div>
@@ -18,6 +18,7 @@
 import { ref } from "vue";
 import { kebabCase } from "lodash";
 
+defineProps<{ roles: Record<string, any> }>();
 const roles = ref(["Admin", "Sales Man"]);
 </script>
 
