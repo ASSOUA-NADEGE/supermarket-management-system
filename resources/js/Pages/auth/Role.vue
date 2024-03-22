@@ -10,6 +10,7 @@
                     @click="
                         [
                             (currentUser = user),
+                            (form.email = user.email),
                             (showPassword = true),
                             debounce(
                                 () =>
@@ -36,7 +37,7 @@
             Please Enter your password for {{ currentUser.name }}
             <TextInput
                 type="password"
-                v-model="password"
+                v-model="form.password"
                 @keyup.enter="handleLogin"
                 ref="passwordInputRef"
             />
@@ -45,22 +46,31 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, ref } from "vue";
-import { router } from "@inertiajs/vue3";
+import { reactive, ref, watch } from "vue";
+import { router, useForm } from "@inertiajs/vue3";
 import { debounce } from "lodash";
 import Modal from "../../Components/Breeze/Modal.vue";
 import TextInput from "../../Components/Breeze/TextInput.vue";
 
-defineProps<{ users: Record<string, any> }>();
+const props = defineProps<{ users: Record<string, any> }>();
 const showPassword = ref(false);
 const currentUser = reactive({});
-const password = ref("");
+
+const form = useForm({
+    email: "",
+    password: "",
+});
 
 const handleLogin = () => {
-    console.error("wobey");
-    if (password.value !== currentUser.password) return;
+    if (form.password.value === "") return;
 
-    router.visit("home");
+    form.post("/auth", {
+        onSuccess: () => {
+            router.visit("/dashboard");
+        },
+    });
+
+    // router.visit("/home");
 };
 </script>
 
