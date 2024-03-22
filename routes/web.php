@@ -40,3 +40,5 @@ Route::prefix('auth')->middleware('guest')->group(function () {
         Route::get('/{role}', 'role');
     });
 });
+
+Route::inertia('rxjs', 'rxjs');
