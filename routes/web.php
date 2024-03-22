@@ -35,7 +35,8 @@ Route::prefix('breeze')->group(function () {
 
 Route::prefix('auth')->middleware('guest')->group(function () {
     Route::controller(App\Http\Controllers\AuthenticationController::class)->group(function () {
-        Route::get('/', 'home');
+        Route::post('', 'login');
+        Route::get('/', 'home')->name('login');
         Route::get('/{role}', 'role');
     });
 });
