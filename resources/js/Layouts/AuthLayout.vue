@@ -1,163 +1,32 @@
 <script setup lang="ts">
 import Section from "@/Components/Section.vue";
+import Button from "primevue/button";
+function back(){
+    Window.navigation.back()
+}
 </script>
 
 <template>
-    <Section  class="h-screen relative">
-        <div class="absolute top-0">
-            <div class="bubble">
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-            <div class="bubble">
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-            <div class="bubble">
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-            <div class="bubble">
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-            <div class="bubble">
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
+    <div class="relative h-screen">
+        <div class="absolute inset-0  h-full w-full" style="background-color: var(--highlight-bg);">
+
+
+            <div class="flex items-center justify-center relative">
+                <div
+                    class="size-96 bg-blue-400 rounded-full absolute top-20 mix-blend-multiply animate-blob filter blur-2xl opacity-30"></div>
+                <div
+                    class="size-96 bg-yellow-400 rounded-full absolute top-72 left-80 mix-blend-multiply filter blur-2xl opacity-30 animate-blob animation-delay-200"></div>
+                <div
+                    class="size-96 bg-red-400 rounded-full absolute right-80 top-72 mix-blend-multiply filter blur-2xl opacity-30 animate-blob animation-delay-400"></div>
             </div>
         </div>
-        <main class="grid items-center justify-center h-screen w-full">
-            <slot />
-        </main>
-    </Section>
+        <Section class="relative">
+            <Button severity="secondary" icon="pi pi-arrow-left" class="absolute top-5 left-5" @click="back"/>
+            <main class="grid items-center justify-center h-screen w-full">
+                <slot/>
+            </main>
+        </Section>
+    </div>
 </template>
 
-<style scoped>
-.bubble {
-  position: absolute;
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  box-shadow: inset 0 0 25px rgba (255, 255, 255, 0.25);
-  animation: animate_4010 8s ease-in-out infinite;
-}
 
-.bubble:nth-child(2) {
-  position: relative;
-  zoom: 0.45;
-  left: -10px;
-  top: -100px;
-  animation-delay: -4s;
-}
-
-.bubble:nth-child(3) {
-  position: relative;
-  zoom: 0.45;
-  right: -80px;
-  top: -300px;
-  animation-delay: -6s;
-}
-
-.bubble:nth-child(4) {
-  position: relative;
-  zoom: 0.35;
-  left: -120px;
-  bottom: -200px;
-  animation-delay: -3s;
-}
-
-.bubble:nth-child(5) {
-  position: relative;
-  zoom: 0.5;
-  left: 0px;
-  top: 200px;
-  animation-delay: -5s;
-}
-
-@keyframes animate_4010 {
-  0%,100% {
-    transform: translateY(-20px);
-  }
-
-  50% {
-    transform: translateY(20px);
-  }
-}
-
-.bubble::before {
-  content: '';
-  position: absolute;
-  top: 50px;
-  left: 45px;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  background: #fff;
-  z-index: 10;
-  filter: blur(2px);
-}
-
-.bubble::after {
-  content: '';
-  position: absolute;
-  top: 80px;
-  left: 80px;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: #fff;
-  z-index: 10;
-  filter: blur(2px);
-}
-
-.bubble span {
-  position: absolute;
-  border-radius: 50%;
-}
-
-.bubble span:nth-child(1) {
-  inset: 10px;
-  border-left: 15px solid #0fb4ff;
-  filter: blur(8px);
-}
-
-.bubble span:nth-child(2) {
-  inset: 10px;
-  border-right: 15px solid #ff4484;
-  filter: blur(8px);
-}
-
-.bubble span:nth-child(3) {
-  inset: 10px;
-  border-top: 15px solid #ffeb3b;
-  filter: blur(8px);
-}
-
-.bubble span:nth-child(4) {
-  inset: 30px;
-  border-left: 15px solid #ff4484;
-  filter: blur(12px);
-}
-
-.bubble span:nth-child(5) {
-  inset: 10px;
-  border-bottom: 10px solid #fff;
-  filter: blur(8px);
-  transform: rotate(330deg);
-}
-</style>
