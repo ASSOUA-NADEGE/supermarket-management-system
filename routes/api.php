@@ -8,4 +8,4 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-Route::get('/products', fn () => Product::query()->whereAny(['name', 'description'], 'LIKE', '%' . request('q') . '%')->get());
+Route::get('/products', fn () => Product::query()->whereAny(['name', 'description', 'sku'], 'LIKE', '%' . request('q') . '%')->get());
