@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class VendorController extends Controller
@@ -11,7 +13,7 @@ class VendorController extends Controller
     }
 
     public function createOrder(){
-        return inertia('vendor/order/Create');
+        return inertia('vendor/order/Create',['products'=>Product::all(),'categories'=>Category::all()]);
     }
 
     public function indexOrder(){

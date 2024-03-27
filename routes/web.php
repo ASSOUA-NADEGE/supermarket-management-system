@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\VendorController;
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -10,6 +11,11 @@ use Inertia\Inertia;
 Route::get('/', [WelcomeController::class, 'landing'])->name('landing');
 //Route::get('/products', [ProductController::class, 'index'])->name('products');
 Route::resource('products', ProductController::class);
+Route::get('vendor/dashboard',[VendorController::class,'dashboard']);
+Route::get('/vendor/products',[VendorController::class,'indexProduct']);
+Route::get('/vendor/profile',[VendorController::class,'profile']);
+Route::get('/vendor/orders',[VendorController::class,'indexOrder']);
+Route::get('/vendor/orders/create',[VendorController::class,'createOrder']);
 
 Route::prefix('breeze')->group(function () {
     Route::get('/', function () {
