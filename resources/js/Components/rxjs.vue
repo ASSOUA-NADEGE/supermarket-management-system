@@ -1,6 +1,11 @@
 <template>
     <div>
-        <input type="text" v-model="search" />
+        <IconField iconPosition="left">
+            <InputIcon>
+                <i class="pi pi-search"/>
+            </InputIcon>
+            <InputText placeholder="Search Prdouct" type="text" v-model="search" class="w-full"/>
+        </IconField>
         <div class="bg-black rounded divide-y divide-white flex flex-col">
             <Transition
                 enter-active-class="duration-300"
@@ -11,20 +16,23 @@
                 leave-to-class="opacity-0"
             >
                 <span class="bg-black text-white mb-4" v-if="fetching"
-                    >Loading...</span
+                >Loading...</span
                 >
             </Transition>
             <span class="text-white p-2" v-for="product in products">{{
-                product.name
-            }}</span>
+                    product.name
+                }}</span>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
-import { ref, watchEffect } from "vue";
-import { from, useSubscription } from "@vueuse/rxjs";
-import { ajax } from "rxjs/ajax";
+import IconField from "primevue/iconfield"
+import InputIcon from "primevue/inputicon"
+import {ref, watchEffect} from "vue";
+import InputText from "primevue/inputtext"
+import {from, useSubscription} from "@vueuse/rxjs";
+import {ajax} from "rxjs/ajax";
 import {
     distinctUntilChanged,
     tap,
@@ -37,6 +45,9 @@ const search = ref("");
 const products = ref([]);
 const fetching = ref(false);
 
+defineProps<{
+    products: any
+}>()
 useSubscription(
     from(search)
         .pipe(
