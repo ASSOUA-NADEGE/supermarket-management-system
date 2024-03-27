@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Product>
@@ -18,7 +19,9 @@ class ProductFactory extends Factory
     public function definition(): array
     {
         return [
-            "stock" => Arr::random([10,20,30,40,50])
+            "stock" => $this->faker->numberBetween(10, 100),
+            "sku" => str(Str::random(10))->upper(),
+            "discount" => $this->faker->boolean(30) ? $this->faker->numberBetween(1, 9) * 5 : 0
         ];
     }
 }

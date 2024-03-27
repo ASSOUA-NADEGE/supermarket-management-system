@@ -20,6 +20,7 @@ return new class extends Migration
             $table->foreignIdFor(Category::class);
             $table->string('image');
             $table->integer('price');
+            $table->float('discount')->default(0.0);
             $table->text('description');
             $table->timestamps();
         });
