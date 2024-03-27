@@ -78,7 +78,10 @@ defineOptions({
                             v-for="product in cart.data"
                             class="flex items-center relative justify-between"
                         >
-                            <button class="absolute text-xs -top-1 right-1">
+                            <button
+                                class="absolute text-xs -top-1 right-1 cursor-pointer"
+                                @click="cart.remove(product)"
+                            >
                                 x
                             </button>
                             <div class="text-sm">
