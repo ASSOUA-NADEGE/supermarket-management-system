@@ -23,6 +23,7 @@
         "@vueuse/components": "^10.9.0",
         "@vueuse/core": "^10.9.0",
         "@vueuse/rxjs": "^10.9.0",
+        "chart.js": "^4.4.2",
         "lodash": "^4.17.21",
         "pinia": "^2.1.7",
         "primeicons": "^6.0.1",
