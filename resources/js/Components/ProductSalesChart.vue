@@ -1,12 +1,15 @@
 <template>
-    <div class="card flex justify-content-center">
-        <Chart type="pie" :data="chartData" :options="chartOptions" class="w-full"/>
-    </div>
+    <Card class="card flex justify-center items-center">
+        <template #content>
+            <Chart type="pie" :data="chartData" :options="chartOptions" class="w-full"/>
+        </template>
+    </Card>
 </template>
 
 <script setup>
 import {ref, onMounted} from "vue";
 import Chart from 'primevue/chart';
+import Card from "primevue/card"
 
 onMounted(() => {
     chartData.value = setChartData();

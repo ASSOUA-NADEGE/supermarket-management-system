@@ -1,12 +1,17 @@
 <template>
-    <div>
-        <h2>Yearly Sales</h2>
-        <Chart type="bar" :data="chartData" :options="chartOptions"  class="h-96"  />
-    </div>
+    <Card>
+        <template #header>
+            <h2 class="px-4">Yearly Sales</h2>
+        </template>
+        <template #content>
+            <Chart type="bar" :data="chartData" :options="chartOptions" class="h-72"/>
+        </template>
+    </Card>
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
+import Card from "primevue/card"
+import {ref, onMounted} from "vue";
 
 import Chart from 'primevue/chart';
 
