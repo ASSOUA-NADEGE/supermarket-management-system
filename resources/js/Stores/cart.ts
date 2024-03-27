@@ -1,6 +1,6 @@
 import { Product } from "@/types";
 import { defineStore } from "pinia";
-import { reactive } from "vue";
+import { computed, reactive } from "vue";
 import { pick } from "lodash";
 
 const useCartStore = defineStore("cart", () => {
@@ -10,17 +10,38 @@ const useCartStore = defineStore("cart", () => {
 
     const cart = reactive<Array<CartProduct>>([]);
 
+    const subtotal = computed(() =>
+        cart.reduce(
+            (total, product) =>
+                total + Number(product.price * product.quantity),
+            0,
+        ),
+    );
+
     const get = (id: string | number) => cart.find((p) => p.id === Number(id));
 
     const add = (product: Product, quantity: number = 1) => {
         if (!has(product))
             cart.push({ ...pick(product, ["id", "price", "name"]), quantity });
+        else increment(product, quantity);
+    };
 
-        cart.map((p) => {
-            return p.id === product.id
-                ? { ...p, quantity: p.quantity + quantity }
-                : p;
-        });
+    const increment = (
+        product: Product | CartProduct | number,
+        quantity: number = 1,
+    ) => {
+        if (typeof product === "number")
+            cart.map((p) =>
+                p.id === product
+                    ? { ...p, quantity: p.quantity + quantity }
+                    : p,
+            );
+        else
+            cart.map((p) =>
+                p.id === product.id
+                    ? { ...p, quantity: p.quantity + quantity }
+                    : p,
+            );
     };
 
     const has = (product: Product | CartProduct | number) => {
@@ -57,6 +78,11 @@ const useCartStore = defineStore("cart", () => {
         add,
 
         /**
+         * increment a product in the cart
+         * */
+        increment,
+
+        /**
          * Remove a product from the cart
          **/
         remove,
@@ -70,6 +96,11 @@ const useCartStore = defineStore("cart", () => {
          * Check if a given product exists in the cart
          * */
         has,
+
+        /**
+         * The subtotal of the cart items
+         * */
+        subtotal,
 
         /**
          * The data present in the cart
