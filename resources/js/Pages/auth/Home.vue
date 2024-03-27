@@ -27,9 +27,10 @@ import {kebabCase} from "lodash";
 import AuthLayout from "@/Layouts/AuthLayout.vue";
 import Card from "primevue/card"
 import {Link} from "@inertiajs/vue3";
+import DefaultLayout from "@/Layouts/DefaultLayout.vue";
 
 defineOptions({
-    layout: AuthLayout,
+    layout: [DefaultLayout,AuthLayout],
 })
 
 defineProps<{ roles: Record<string, any> }>();

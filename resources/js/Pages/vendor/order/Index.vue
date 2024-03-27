@@ -6,10 +6,11 @@ import Column from 'primevue/column';
 import VendorLayout from "@/Layouts/VendorLayout.vue";
 import {Link} from "@inertiajs/vue3"
 import Button from "primevue/button"
+import DefaultLayout from "@/Layouts/DefaultLayout.vue";
 
 const products = ref();
 defineOptions({
-    layout: VendorLayout
+    layout: [DefaultLayout,VendorLayout]
 })
 </script>
 

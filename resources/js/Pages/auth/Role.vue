@@ -73,10 +73,11 @@ import Card from "primevue/card";
 import Button from "primevue/button";
 import TextInput from "primevue/inputtext";
 import Dialog from "primevue/dialog";
+import DefaultLayout from "@/Layouts/DefaultLayout.vue";
 
 
 defineOptions({
-    layout: AuthLayout
+    layout: [DefaultLayout,AuthLayout]
 })
 
 const visible = ref(true);

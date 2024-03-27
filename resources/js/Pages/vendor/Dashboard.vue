@@ -7,9 +7,10 @@ import {Link} from "@inertiajs/vue3"
 import ProductSalesChart from "@/Components/ProductSalesChart.vue";
 import DataTable from "primevue/datatable";
 import Column from "primevue/column";
+import DefaultLayout from "@/Layouts/DefaultLayout.vue";
 
 defineOptions({
-    layout: VendorLayout
+    layout: [DefaultLayout,VendorLayout]
 })
 </script>
 

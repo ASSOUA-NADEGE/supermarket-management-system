@@ -8,9 +8,10 @@ import InputText from "primevue/inputtext";
 import Paginator from 'primevue/paginator';
 import PanelMenu from "primevue/panelmenu";
 import {Link} from "@inertiajs/vue3";
+import DefaultLayout from "@/Layouts/DefaultLayout.vue";
 
 defineOptions({
-    layout: GuestLayout
+    layout: [DefaultLayout,GuestLayout]
 })
 
 defineProps<{

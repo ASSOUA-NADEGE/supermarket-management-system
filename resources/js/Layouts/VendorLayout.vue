@@ -41,7 +41,7 @@ const links = [
 <template>
     <div class="flex">
         <div class="w-1/4 bg-primary">
-            <Sidebar class='border-0 shadow-none bg-transparent' :visible="true" :modal="false"
+            <Sidebar :auto-z-index="false" class='border-0 shadow-none bg-transparent' :visible="true" :modal="false"
                      :show-close-icon="false">
                 <menu class="list-none p-0 m-0 overflow-hidden space-y-4">
                     <Link

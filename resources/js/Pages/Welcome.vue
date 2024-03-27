@@ -10,11 +10,12 @@ import Button from "primevue/button"
 import {ref} from "vue";
 import ProductCard from "@/Components/ProductCard.vue";
 import PrimaryProductCard from "@/Components/PrimaryProductCard.vue";
+import DefaultLayout from "@/Layouts/DefaultLayout.vue";
 
 const value = ref(0)
 
 defineOptions({
-    layout: GuestLayout
+    layout: [DefaultLayout,GuestLayout]
 });
 
 defineProps<{

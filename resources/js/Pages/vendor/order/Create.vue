@@ -6,6 +6,7 @@ import {ref} from "vue"
 import Rxjs from "@/Components/rxjs.vue";
 import Dropdown from "primevue/dropdown";
 import UseCart from "@/Stores/cart"
+import DefaultLayout from "@/Layouts/DefaultLayout.vue";
 const cart = UseCart()
 const value = ref(0)
 
@@ -15,7 +16,7 @@ defineProps<{
     categories: any
 }>()
 defineOptions({
-    layout: VendorLayout
+    layout: [DefaultLayout,VendorLayout]
 })
 </script>
 

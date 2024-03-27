@@ -5,11 +5,12 @@ import {Link} from "@inertiajs/vue3";
 import Button from "primevue/button";
 import Rating from "primevue/rating"
 import {ref} from "vue";
+import DefaultLayout from "@/Layouts/DefaultLayout.vue";
 
 const value = ref(0)
 const rating = ref(4)
 defineOptions({
-    layout: GuestLayout
+    layout: [DefaultLayout,GuestLayout]
 })
 defineProps<{
     product: any
