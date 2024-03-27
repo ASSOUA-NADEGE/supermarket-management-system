@@ -13,7 +13,12 @@ const useCartStore = defineStore("cart", () => {
     const subtotal = computed(() =>
         cart.reduce(
             (total, product) =>
-                total + Number(product.price * product.quantity),
+                total +
+                Number(
+                    ((100 - product.discount) / 100) *
+                        product.price *
+                        product.quantity,
+                ),
             0,
         ),
     );
