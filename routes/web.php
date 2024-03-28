@@ -12,13 +12,19 @@ Route::get('/', [WelcomeController::class, 'landing'])->name('landing');
 //Route::get('/products', [ProductController::class, 'index'])->name('products');
 Route::resource('products', ProductController::class);
 
-Route::prefix('vendor')->middleware(['role:vendor'])->group(function () {
-    Route::get('/dashboard', [VendorController::class, 'dashboard']);
-    Route::get('/products', [VendorController::class, 'indexProduct']);
-    Route::get('/profile', [VendorController::class, 'profile']);
-    Route::get('/orders', [VendorController::class, 'indexOrder']);
-    Route::get('/orders/create', [VendorController::class, 'createOrder']);
-});
+Route::prefix('vendor')
+    ->name('vendor.')
+    ->middleware(['auth', 'role:vendor'])
+    ->group(function ($router) {
+        $router->redirect('', 'dashboard');
+        Route::get('/dashboard', [VendorController::class, 'dashboard']);
+        Route::get('/products', [VendorController::class, 'indexProduct']);
+        Route::get('/profile', [VendorController::class, 'profile']);
+        Route::get('/orders', [VendorController::class, 'indexOrder']);
+        Route::get('/orders/create', [VendorController::class, 'createOrder']);
+
+        $router->resource('orders', \App\Http\Controllers\OrderController::class)->only('store', 'update', 'destroy');
+    });
 
 Route::prefix('breeze')->group(function () {
     Route::get('/', function () {
