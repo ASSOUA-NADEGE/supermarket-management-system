@@ -17,6 +17,8 @@ Route::get('/vendor/profile',[VendorController::class,'profile']);
 Route::get('/vendor/orders',[VendorController::class,'indexOrder']);
 Route::get('/vendor/orders/create',[VendorController::class,'createOrder']);
 
+require base_path('routes/admin.php');
+
 Route::prefix('breeze')->group(function () {
     Route::get('/', function () {
         return Inertia::render('Welcome', [
