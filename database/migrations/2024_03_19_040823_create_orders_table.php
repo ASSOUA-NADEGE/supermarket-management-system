@@ -20,7 +20,7 @@ return new class extends Migration
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate();
             $table->integer('total_amount');
-            $table->enum('status', ['pending', 'process', 'complete']);
+            $table->string('status');
 
             $table->timestamps();
         });
