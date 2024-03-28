@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\OrderStatus;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -13,14 +14,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('orders', function (Blueprint $table) {
-            $table->id();
+            $table->ulid('id')->primary();
             $table
                 ->foreignIdFor(User::class, 'vendor_id')
                 ->constrained('users')
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate();
-            $table->integer('total');
-            $table->string('status');
+            // $table->integer('total');
+            $table->string('status')->default(OrderStatus::PENDING);
 
             $table->timestamps();
         });
