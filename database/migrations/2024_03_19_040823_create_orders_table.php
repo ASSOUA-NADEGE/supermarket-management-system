@@ -19,7 +19,7 @@ return new class extends Migration
                 ->constrained('users')
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate();
-            $table->integer('total_amount');
+            $table->integer('total');
             $table->string('status');
 
             $table->timestamps();
