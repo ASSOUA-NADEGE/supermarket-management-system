@@ -31,6 +31,7 @@ class PermissionSeeder extends Seeder
             'delete-products',
             'create-orders',
             'update-orders',
+            'refund-orders',
             'delete-orders',
         ])->each(function ($permission) {
             Permission::create(['name' => $permission]);

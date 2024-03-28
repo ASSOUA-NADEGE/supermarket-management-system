@@ -22,7 +22,8 @@ class RoleSeeder extends Seeder
                 'view-reports',
                 'view-settings',
                 'view-categories',
-                'view-products'
+                'view-products',
+                'create-orders'
             ],
         ])->each(function ($permissions, $role) {
             try {
