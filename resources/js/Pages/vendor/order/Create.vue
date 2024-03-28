@@ -74,40 +74,47 @@ defineOptions({
                     </div>
                     <Divider />
                     <div>
-                        <div
-                            v-for="product in cart.data"
-                            class="flex items-center relative justify-between"
+                        <TransitionGroup
+                            enter-active-class="transition-all duration-700"
+                            leave-active-class="transition-all duration-700"
+                            enter-from-class="opacity-0 -translate-x-full"
+                            leave-to-class="opacity-0 translate-x-full"
                         >
-                            <button
-                                class="absolute text-xs -top-1 right-1 cursor-pointer"
-                                @click="cart.remove(product)"
+                            <div
+                                v-for="product in cart.data"
+                                class="flex items-center relative justify-between"
                             >
-                                x
-                            </button>
-                            <div class="text-sm">
-                                <p class="font-bold">{{ product.name }}</p>
-                                <p>{{ product.price }} XAF</p>
-                                <p>Notes</p>
+                                <button
+                                    class="absolute text-xs -top-1 right-1 cursor-pointer"
+                                    @click="cart.remove(product)"
+                                >
+                                    x
+                                </button>
+                                <div class="text-sm">
+                                    <p class="font-bold">{{ product.name }}</p>
+                                    <p>{{ product.price }} XAF</p>
+                                    <p>Notes</p>
+                                </div>
+                                <div class="flex items-center gap-1">
+                                    <Button
+                                        @click="cart.decrement(product, 1)"
+                                        severity="secondary"
+                                        icon="pi pi-minus"
+                                    ></Button>
+                                    <Button
+                                        severity="secondary"
+                                        aria-readonly
+                                        class="w-10 h-full flex items-center justify-center bg-neutral-100"
+                                        >{{ product.quantity }}
+                                    </Button>
+                                    <Button
+                                        @click="cart.increment(product)"
+                                        severity="secondary"
+                                        icon="pi pi-plus"
+                                    ></Button>
+                                </div>
                             </div>
-                            <div class="flex items-center gap-1">
-                                <Button
-                                    @click="cart.increment(product, -1)"
-                                    severity="secondary"
-                                    icon="pi pi-minus"
-                                ></Button>
-                                <Button
-                                    severity="secondary"
-                                    aria-readonly
-                                    class="w-10 h-full flex items-center justify-center bg-neutral-100"
-                                    >{{ product.quantity }}
-                                </Button>
-                                <Button
-                                    @click="cart.increment(product)"
-                                    severity="secondary"
-                                    icon="pi pi-plus"
-                                ></Button>
-                            </div>
-                        </div>
+                        </TransitionGroup>
                     </div>
                 </div>
                 <div>
@@ -115,7 +122,7 @@ defineOptions({
                     <div class="space-y-4">
                         <div class="text-sm flex justify-between items-center">
                             <span>Subtotal</span>
-                            <span>{{ cart.subtotal }} XAF</span>
+                            <span>{{ cart.subtotal.toFixed(2) }} XAF</span>
                         </div>
                         <div class="text-sm flex justify-between items-center">
                             <span>Discount(0%)</span>
