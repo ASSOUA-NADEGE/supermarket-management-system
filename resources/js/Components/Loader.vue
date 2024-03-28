@@ -39,8 +39,8 @@
 <style scoped>
 .loader {
     --duration: 3s;
-    --primary: rgb(0, 204, 255);
-    --primary-light: #00a6ff;
+    --primary: var(--primary-color);
+    --primary-light: var(--primary-light-color);
     --primary-rgba: rgba(204, 0, 255, 0.04);
     width: 200px;
     height: 320px;
