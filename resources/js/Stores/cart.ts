@@ -4,13 +4,14 @@ import { computed, reactive } from "vue";
 import { pick } from "lodash";
 
 const useCartStore = defineStore("cart", () => {
-    interface CartProduct extends Pick<Product, "id" | "price" | "name"> {
+    interface CartProduct
+        extends Pick<Product, "id" | "price" | "name" | "discount"> {
         quantity: number;
     }
 
     const cart = reactive<Array<CartProduct>>([]);
 
-    const subtotal = computed(() =>
+    const subtotal = computed<number>(() =>
         cart.reduce(
             (total, product) =>
                 total +
@@ -27,7 +28,10 @@ const useCartStore = defineStore("cart", () => {
 
     const add = (product: Product, quantity: number = 1) => {
         if (!has(product))
-            cart.push({ ...pick(product, ["id", "price", "name"]), quantity });
+            cart.push({
+                ...pick(product, ["id", "price", "name", "discount"]),
+                quantity,
+            });
         else increment(product, quantity);
     };
 
@@ -35,18 +39,36 @@ const useCartStore = defineStore("cart", () => {
         product: Product | CartProduct | number,
         quantity: number = 1,
     ) => {
-        if (typeof product === "number")
-            cart.map((p) =>
-                p.id === product
-                    ? { ...p, quantity: p.quantity + quantity }
-                    : p,
-            );
-        else
-            cart.map((p) =>
-                p.id === product.id
-                    ? { ...p, quantity: p.quantity + quantity }
-                    : p,
-            );
+        if (!has(product)) return;
+
+        const productIndex = cart.findIndex((p) =>
+            typeof product === "number"
+                ? p.id === product
+                : p.id === product.id,
+        );
+
+        cart[productIndex].quantity += quantity;
+        console.log(
+            "the product was incremented",
+            productIndex,
+            cart[productIndex],
+        );
+    };
+
+    const decrement = (
+        product: Product | CartProduct | number,
+        quantity: number = 1,
+    ) => {
+        if (!has(product)) return;
+
+        const productIndex = cart.findIndex((p) =>
+            typeof product === "number"
+                ? p.id === product
+                : p.id === product.id,
+        );
+
+        if (cart[productIndex].quantity <= 1) remove(product);
+        else cart[productIndex].quantity -= quantity;
     };
 
     const has = (product: Product | CartProduct | number) => {
@@ -59,10 +81,11 @@ const useCartStore = defineStore("cart", () => {
     const remove = (product: Product | CartProduct | number) => {
         if (!has(product)) return;
 
-        let productToRemove = get(
-            typeof product === "number" ? product : product.id,
-        ) as CartProduct;
-        let index = cart.findIndex((p) => p.id === productToRemove.id);
+        let index = cart.findIndex((p) =>
+            typeof product === "number"
+                ? p.id === product
+                : p.id === product.id,
+        );
 
         if (index >= 0) cart.splice(index, 1);
     };
@@ -86,6 +109,11 @@ const useCartStore = defineStore("cart", () => {
          * increment a product in the cart
          * */
         increment,
+
+        /**
+         * increment a product in the cart
+         * */
+        decrement,
 
         /**
          * Remove a product from the cart
