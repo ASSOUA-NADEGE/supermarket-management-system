@@ -7,6 +7,7 @@ import Rxjs from "@/Components/rxjs.vue";
 import Dropdown from "primevue/dropdown";
 import UseCart from "@/Stores/cart";
 import DefaultLayout from "@/Layouts/DefaultLayout.vue";
+import { router } from "@inertiajs/vue3";
 const cart = UseCart();
 const value = ref(0);
 
@@ -142,8 +143,22 @@ defineOptions({
                             <Button severity="secondary" @click="cart.clear"
                                 >Cancel</Button
                             >
-                            <Button class="flex-grow justify-center"
-                                >Buy</Button
+                            <Button
+                                class="flex-grow justify-center"
+                                @click="
+                                    router.post(
+                                        route('vendor.orders.store'),
+                                        {
+                                            cart: cart.data,
+                                        },
+                                        {
+                                            preserveState: true,
+                                            preserveScroll: true,
+                                            onSuccess: () => cart.clear(),
+                                        },
+                                    )
+                                "
+                                >Sell</Button
                             >
                         </div>
                     </div>
