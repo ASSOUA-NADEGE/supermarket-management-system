@@ -29,7 +29,13 @@ class OrderPolicy
      */
     public function create(User $user): bool
     {
-        //
+        if ($user->hasRole(['vendor']))
+            return true;
+
+        else if ($user->hasPermissionTo('create-orders'))
+            return true;
+
+        return false;
     }
 
     /**
