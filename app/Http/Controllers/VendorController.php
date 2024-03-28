@@ -17,7 +17,7 @@ class VendorController extends Controller
 
     public function createOrder()
     {
-        abort_unless(request()->user()->cannot('create', Order::class), Response::HTTP_FORBIDDEN);
+        abort_unless(request()->user()->can('create', Order::class), Response::HTTP_FORBIDDEN);
 
         return inertia('vendor/order/Create', ['products' => Product::all(), 'categories' => Category::all()]);
     }
