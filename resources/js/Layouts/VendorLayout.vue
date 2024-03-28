@@ -23,18 +23,7 @@ const links = [
         to: '/vendor/orders',
         component: 'vendor/order/Index'
     },
-    // {
-    //     label: 'Products',
-    //     icon: 'pi pi-fw pi-shopping-cart',
-    //     to: '/vendor/products',
-    //     component: 'vendor/product/Index'
-    // },
-    // {
-    //     label: 'Profile',
-    //     icon: 'pi pi-fw pi-user',
-    //     to: '/vendor/profile',
-    //     component: 'vendor/profile/Edit'
-    // },
+
 ]
 </script>
 
@@ -45,7 +34,7 @@ const links = [
                  :show-close-icon="true" position="left">
             <menu class="list-none p-0 m-0 overflow-hidden space-y-4">
                 <Link
-                    class="flex text-neutral-700 hover:bg-neutral-800/10 hover:text-neutral-100  align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple"
+                    class="flex text-neutral-700  align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple"
                     :class="{'bg-neutral-800/20 text-neutral-200': $page.component === link.component}"
                     v-for="link in links" :href="link.to">
                     <i :class="link.icon" class="mr-3"></i>
