@@ -2,16 +2,52 @@
 import Button from "primevue/button";
 import Avatar from "primevue/avatar";
 import {ref} from "vue";
+import Tree from "primevue/tree";
+import {Link} from "@inertiajs/vue3"
 
 const show = ref(false)
+const nodes = ref([
+    {
+        key: '0',
+        label: 'Dashboard',
+    },
+    {
+        key: '1',
+        label: 'Components In-Depth',
+        children: [
+            {
+                key: '1-0',
+                label: 'Component Registration',
+                data: 'https://vuejs.org/guide/components/registration.html#component-registration',
+                type: 'url'
+            },
+            {key: '1-1', label: 'Props', data: 'https://vuejs.org/guide/components/props.html#props', type: 'url'},
+            {
+                key: '1-2',
+                label: 'Components Events',
+                data: 'https://vuejs.org/guide/components/events.html#component-events',
+                type: 'url'
+            },
+            {key: '1-3', label: 'Slots', data: 'https://vuejs.org/guide/components/slots.html#slots', type: 'url'}
+        ]
+    }
+]);
 </script>
 
 <template>
     <div class="flex">
         <div class="w-1/5">
             <div class="top-0 sticky bg-neutral-800 h-screen">
-                <div class="bg-neutral-700 h-14">
+                <div class="bg-primary h-14">
                 </div>
+
+                <nav class="grid gap-0.5">
+                    <Link href="admin/dashboard">Dashboard</Link>
+                    <Link href="admin/users">Users</Link>
+                    <Link href="admin/products">Products</Link>
+                    <Link href="admin/categories">Categories</Link>
+                    <Link href="admin/products">Orders</Link>
+                </nav>
             </div>
         </div>
         <div class="w-full " :class="{'w-4/5': show}">
@@ -37,5 +73,11 @@ const show = ref(false)
 </template>
 
 <style scoped>
+.p-treenode-toggler-icon {
+    @apply bg-transparent text-xs
+}
+a {
+    @apply text-white p-4 bg-neutral-600/20 hover:bg-neutral-600/40 transition-colors duration-300 hover:text-primary;
 
+}
 </style>
