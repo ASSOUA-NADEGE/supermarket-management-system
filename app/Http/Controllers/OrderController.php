@@ -13,7 +13,9 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
+        return inertia('vendor/order/Index', [
+            'orders' => fn () => Order::with('vendor')->get()
+        ]);
     }
 
     /**
