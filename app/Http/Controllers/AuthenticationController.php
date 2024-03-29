@@ -28,8 +28,13 @@ class AuthenticationController extends Controller
         $credentials = $request->safe()->toArray();
 
         if (!auth()->attempt($credentials)) {
+            throw \Illuminate\Validation\ValidationException::withMessages(['login' => 'Login Failed! Please Check credentials.']);
         }
 
-        return redirect('/dashboard');
+        if ($request->user()->hasRole('admin')) {
+            return redirect('/admin');
+        }
+
+        return redirect('/vendor');
     }
 }
