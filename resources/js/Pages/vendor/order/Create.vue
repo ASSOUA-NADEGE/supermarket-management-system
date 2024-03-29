@@ -214,7 +214,7 @@ useSubscription(
                                     router.post(
                                         route('vendor.orders.store'),
                                         {
-                                            cart: cart.data,
+                                            products: cart.data,
                                         },
                                         {
                                             preserveState: true,

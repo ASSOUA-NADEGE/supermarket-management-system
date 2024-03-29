@@ -36,7 +36,7 @@ class OrderController extends Controller
             'vendor_id' => auth()->user()->getAuthIdentifier()
         ]);
 
-        collect($attributes['cart'])->each(fn ($product) => $order->products()->attach($product['id'], ['quantity' => $product['quantity']]));
+        collect($attributes['products'])->each(fn ($product) => $order->products()->attach($product['id'], ['quantity' => $product['quantity']]));
 
         return back()->with('flash', 'Order created successfully!');
     }
@@ -62,7 +62,18 @@ class OrderController extends Controller
      */
     public function update(UpdateOrderRequest $request, Order $order)
     {
-        //
+        $attributes = $request->safe();
+
+        $products = collect($attributes['products']);
+
+        $order
+            ->products()
+            ->syncWithPivotValues(
+                $products->map(fn ($p) => $p['id'])->toArray(),
+                $products->map(fn ($p) => $p['quantity'])->toArray()
+            );
+
+        return back();
     }
 
     /**
@@ -70,6 +81,8 @@ class OrderController extends Controller
      */
     public function destroy(Order $order)
     {
-        //
+        $order->delete();
+
+        return back();
     }
 }
