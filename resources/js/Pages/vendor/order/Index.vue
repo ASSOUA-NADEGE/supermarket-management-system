@@ -13,20 +13,35 @@
             </div>
             <DataTable :value="$props.orders" tableStyle="min-width: 50rem">
                 <Column field="id" header="Code">
-                    <template #body="slotProps">
+                    <template #body="{ data: order }">
                         <Link
                             :href="
                                 route('vendor.orders.show', {
-                                    order: slotProps.data,
+                                    order: order,
                                 })
                             "
-                            >{{ slotProps.data.id }}</Link
+                            >{{ order.id }}</Link
                         >
                     </template>
                 </Column>
                 <Column field="vendor.name" header="Vendor"></Column>
                 <Column field="total" header="Total (XAF)"></Column>
-                <Column field="status" header="Status"></Column>
+                <Column field="status" header="Status">
+                    <template #body="{ data: order }">
+                        <span
+                            :class="[
+                                'text-xs rounded-full px-1.5 py-0.5 inline-flex items-center justify-center',
+                                { 'bg-orange-400': order.status == 'pending' },
+                                {
+                                    'bg-amber-400':
+                                        order.status == 'processing',
+                                },
+                                { 'bg-green-400': order.status == 'completed' },
+                            ]"
+                            >{{ order.status }}</span
+                        >
+                    </template>
+                </Column>
             </DataTable>
         </div>
     </div>
