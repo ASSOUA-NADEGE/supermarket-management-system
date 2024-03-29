@@ -1,9 +1,7 @@
 <script setup lang="ts">
 import Section from "@/Components/Section.vue";
 import Button from "primevue/button";
-function back(){
-    Window.navigation.back()
-}
+
 </script>
 
 <template>
@@ -21,7 +19,6 @@ function back(){
             </div>
         </div>
         <Section class="relative">
-            <Button severity="secondary" icon="pi pi-arrow-left" class="absolute top-5 left-5" @click="back"/>
             <main class="grid items-center justify-center h-screen w-full">
                 <slot/>
             </main>

@@ -1,11 +1,7 @@
 <template>
     <div class="">
-                <h1 class="text-center">Welcome To Our Super Market</h1>
-        <!--        <div class="grow grid place-content-center">-->
-        <!--            <div class="grid grid-cols-3 gap-4">-->
+        <h1 class="text-center">Welcome To Our Super Market</h1>
 
-        <!--            </div>-->
-        <!--        </div>-->
         <div class="flex items-center justify-center gap-4">
             <Link
                 v-for="role in $props.roles"
@@ -13,7 +9,7 @@
             >
                 <Card>
                     <template #content>
-                        {{role.name}}
+                        {{ role.name }}
                     </template>
                 </Card>
             </Link>
@@ -30,7 +26,7 @@ import {Link} from "@inertiajs/vue3";
 import DefaultLayout from "@/Layouts/DefaultLayout.vue";
 
 defineOptions({
-    layout: [DefaultLayout,AuthLayout],
+    layout: [DefaultLayout, AuthLayout],
 })
 
 defineProps<{ roles: Record<string, any> }>();
