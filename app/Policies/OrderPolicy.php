@@ -13,7 +13,10 @@ class OrderPolicy
      */
     public function viewAny(User $user): bool
     {
-        //
+        if ($user->hasPermissionTo('view-orders'))
+            return true;
+
+        return false;
     }
 
     /**
@@ -21,7 +24,10 @@ class OrderPolicy
      */
     public function view(User $user, Order $order): bool
     {
-        //
+        if ($user->hasRole('vendor'))
+            return true;
+
+        return false;
     }
 
     /**
@@ -32,7 +38,7 @@ class OrderPolicy
         if ($user->hasRole(['vendor']))
             return true;
 
-        else if ($user->hasPermissionTo('create-orders'))
+        if ($user->hasPermissionTo('create-orders'))
             return true;
 
         return false;
@@ -43,7 +49,13 @@ class OrderPolicy
      */
     public function update(User $user, Order $order): bool
     {
-        //
+        if ($user->hasRole(['vendor']))
+            return true;
+
+        if ($user->hasPermissionTo('update-orders'))
+            return true;
+
+        return false;
     }
 
     /**
@@ -51,7 +63,10 @@ class OrderPolicy
      */
     public function delete(User $user, Order $order): bool
     {
-        //
+        if ($user->id == $order->vendor_id)
+            return true;
+
+        return false;
     }
 
     /**
