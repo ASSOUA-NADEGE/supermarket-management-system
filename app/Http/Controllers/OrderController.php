@@ -29,7 +29,16 @@ class OrderController extends Controller
      */
     public function store(StoreOrderRequest $request)
     {
-        //
+        $attributes = $request->safe();
+
+        /** @var Order $order */
+        $order = Order::query()->create([
+            'vendor_id' => auth()->user()->getAuthIdentifier()
+        ]);
+
+        collect($attributes['cart'])->each(fn ($product) => $order->products()->attach($product['id'], ['quantity' => $product['quantity']]));
+
+        return back()->with('flash', 'Order created successfully!');
     }
 
     /**

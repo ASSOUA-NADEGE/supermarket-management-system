@@ -11,11 +11,20 @@ use Inertia\Inertia;
 Route::get('/', [WelcomeController::class, 'landing'])->name('landing');
 //Route::get('/products', [ProductController::class, 'index'])->name('products');
 Route::resource('products', ProductController::class);
-Route::get('vendor/dashboard',[VendorController::class,'dashboard']);
-Route::get('/vendor/products',[VendorController::class,'indexProduct']);
-Route::get('/vendor/profile',[VendorController::class,'profile']);
-Route::get('/vendor/orders',[VendorController::class,'indexOrder']);
-Route::get('/vendor/orders/create',[VendorController::class,'createOrder']);
+
+Route::prefix('vendor')
+    ->name('vendor.')
+    ->middleware(['auth', 'role:vendor'])
+    ->group(function ($router) {
+        $router->redirect('', 'dashboard');
+        Route::get('/dashboard', [VendorController::class, 'dashboard']);
+        Route::get('/products', [VendorController::class, 'indexProduct']);
+        Route::get('/profile', [VendorController::class, 'profile']);
+        Route::get('/orders', [VendorController::class, 'indexOrder']);
+        Route::get('/orders/create', [VendorController::class, 'createOrder']);
+
+        $router->resource('orders', \App\Http\Controllers\OrderController::class)->only('store', 'update', 'destroy');
+    });
 
 require base_path('routes/admin.php');
 
