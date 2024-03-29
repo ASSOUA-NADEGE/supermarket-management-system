@@ -2,14 +2,30 @@
 import VendorLayout from "@/Layouts/VendorLayout.vue";
 import Divider from "primevue/divider";
 import Button from "primevue/button";
-import { ref } from "vue";
+import AutoComplete from "primevue/autocomplete";
+import { ref, onMounted } from "vue";
 import Rxjs from "@/Components/rxjs.vue";
 import Dropdown from "primevue/dropdown";
 import UseCart from "@/Stores/cart";
+import IconField from "primevue/iconfield";
+import InputIcon from "primevue/inputicon";
 import DefaultLayout from "@/Layouts/DefaultLayout.vue";
 import { router } from "@inertiajs/vue3";
+import { from, useSubscription } from "@vueuse/rxjs";
+import { ajax } from "rxjs/ajax";
+import {
+    distinctUntilChanged,
+    tap,
+    throttleTime,
+    debounceTime,
+    switchMap,
+} from "rxjs";
+
 const cart = UseCart();
 const value = ref(0);
+const fetching = ref(false);
+const autocomplete = ref<string>();
+const autocompleteProducts = ref([]);
 
 defineProps<{
     products: any;
@@ -18,6 +34,41 @@ defineProps<{
 defineOptions({
     layout: [DefaultLayout, VendorLayout],
 });
+
+// onMounted(() => {
+//     autocomplete.value = "";
+// });
+
+useSubscription(
+    from(autocomplete)
+        .pipe(
+            // wait for 300ms before emitting
+            debounceTime(300),
+
+            // Ensure the previous value is only emitted once
+            distinctUntilChanged(),
+
+            // Start fetching if a distinct value is emitted
+            tap((value) => {
+                fetching.value = true;
+                console.log("fetching data from api");
+            }),
+
+            // emit a new value after every 1.5s only
+            throttleTime(700),
+
+            // Ignore previous values when new one comes in to make the request
+            switchMap((q) =>
+                ajax.getJSON(`/api/products?q=${q === "" ? null : q}`).pipe(
+                    tap((data) => {
+                        fetching.value = false;
+                        autocompleteProducts.value = data;
+                    }),
+                ),
+            ),
+        )
+        .subscribe(),
+);
 </script>
 
 <template>
@@ -25,7 +76,17 @@ defineOptions({
         <div class="w-2/3 px-2">
             <div class="">
                 <div class="flex py-2 gap-2">
-                    <Rxjs :products="products" class="w-full" />
+                    <IconField iconPosition="left" class="basis-full">
+                        <InputIcon>
+                            <i class="pi pi-search" />
+                        </InputIcon>
+                        <AutoComplete
+                            v-model="autocomplete"
+                            :suggestions="autocompleteProducts"
+                            optionLabel="name"
+                            class="grow"
+                        />
+                    </IconField>
                     <Dropdown
                         :options="
                             $props.categories.map((category) => category.name)
@@ -36,7 +97,11 @@ defineOptions({
                 <Divider />
             </div>
             <div class="grid grid-cols-3 gap-4">
-                <div v-for="product in products">
+                <div
+                    v-for="product in autocompleteProducts.length > 0
+                        ? autocompleteProducts
+                        : products"
+                >
                     <div class="size-52 bg-white p-4">
                         <img
                             :src="product.image"
