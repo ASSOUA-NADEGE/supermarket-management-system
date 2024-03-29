@@ -20,10 +20,10 @@ Route::prefix('vendor')
         Route::get('/dashboard', [VendorController::class, 'dashboard']);
         Route::get('/products', [VendorController::class, 'indexProduct']);
         Route::get('/profile', [VendorController::class, 'profile']);
-        Route::get('/orders', [VendorController::class, 'indexOrder']);
+        // Route::get('/orders', [VendorController::class, 'indexOrder']);
         Route::get('/orders/create', [VendorController::class, 'createOrder']);
 
-        $router->resource('orders', \App\Http\Controllers\OrderController::class)->only('store', 'update', 'destroy');
+        $router->resource('orders', \App\Http\Controllers\OrderController::class)->only('show', 'store', 'update', 'destroy', 'index');
     });
 
 Route::prefix('breeze')->group(function () {
