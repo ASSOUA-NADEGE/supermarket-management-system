@@ -59,12 +59,14 @@ useSubscription(
 
             // Ignore previous values when new one comes in to make the request
             switchMap((q) =>
-                ajax.getJSON(`/api/products?q=${q === "" ? null : q}`).pipe(
-                    tap((data) => {
-                        fetching.value = false;
-                        autocompleteProducts.value = data;
-                    }),
-                ),
+                ajax
+                    .getJSON(`/api/products?q=${q === "" ? null : q.trim()}`)
+                    .pipe(
+                        tap((data) => {
+                            fetching.value = false;
+                            autocompleteProducts.value = data;
+                        }),
+                    ),
             ),
         )
         .subscribe(),
@@ -82,8 +84,9 @@ useSubscription(
                         </InputIcon>
                         <AutoComplete
                             v-model="autocomplete"
-                            :suggestions="autocompleteProducts"
-                            optionLabel="name"
+                            :suggestions="
+                                autocompleteProducts.map(({ name }) => name)
+                            "
                             class="grow"
                         />
                     </IconField>
