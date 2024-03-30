@@ -4,34 +4,45 @@ import Avatar from "primevue/avatar";
 import {ref} from "vue";
 import Tree from "primevue/tree";
 import {Link} from "@inertiajs/vue3"
+import OverlayPanel from "primevue/overlaypanel";
 
-const show = ref(false)
-const nodes = ref([
+
+const op = ref();
+const toggle = (event: any) => {
+    op.value.toggle(event);
+}
+const links = [
     {
-        key: '0',
-        label: 'Dashboard',
+        name: 'Dashboard',
+        icon: 'pi-box',
+        component: 'admin/Dashboard',
+        href: route('admin.dashboard')
+    }, {
+        name: 'Users',
+        icon: 'pi-users',
+        component: 'admin/users/Index',
+        href: route('admin.users')
     },
     {
-        key: '1',
-        label: 'Components In-Depth',
-        children: [
-            {
-                key: '1-0',
-                label: 'Component Registration',
-                data: 'https://vuejs.org/guide/components/registration.html#component-registration',
-                type: 'url'
-            },
-            {key: '1-1', label: 'Props', data: 'https://vuejs.org/guide/components/props.html#props', type: 'url'},
-            {
-                key: '1-2',
-                label: 'Components Events',
-                data: 'https://vuejs.org/guide/components/events.html#component-events',
-                type: 'url'
-            },
-            {key: '1-3', label: 'Slots', data: 'https://vuejs.org/guide/components/slots.html#slots', type: 'url'}
-        ]
+        name: 'Products',
+        icon: 'pi-shopping-cart',
+        component: 'admin/products/Index',
+        href: route('admin.products')
+    },
+    {
+        name: 'Orders',
+        icon: 'pi-list',
+        component: 'admin/orders/Index',
+        href: route('admin.orders')
+    },
+    {
+        name: 'Categories',
+        icon: 'pi-bookmark',
+        component: 'admin/categories/Index',
+        href: route('admin.categories')
     }
-]);
+
+]
 </script>
 
 <template>
@@ -42,24 +53,29 @@ const nodes = ref([
                 </div>
 
                 <nav class="grid gap-0.5">
-                    <Link href="admin/dashboard">Dashboard</Link>
-                    <Link href="admin/users">Users</Link>
-                    <Link href="admin/products">Products</Link>
-                    <Link href="admin/categories">Categories</Link>
-                    <Link href="admin/products">Orders</Link>
+                    <Link v-for="link in links" :href="link.href" class="flex items-center gap-3">
+                        <i :class="`pi ${link.icon}`"></i>
+                        <span>{{ link.name }}</span>
+                    </Link>
                 </nav>
             </div>
         </div>
-        <div class="w-full " :class="{'w-4/5': show}">
+        <div class="w-full ">
             <div class="h-14 shadow w-full top-0 sticky bg-white z-10 flex justify-end items-center pr-4">
                 <div class="flex items-center gap-2 ">
                     <Button icon="pi pi-search" severity="secondary"></Button>
                     <Button icon="pi pi-cog" severity="secondary"></Button>
                     <Button badge="1" badge-severity="danger" severity="secondary" icon="pi pi-bell"></Button>
-                    <div class="flex items-center gap-2">
+                    <div class="flex items-center gap-2 cursor-pointer" @click="toggle">
                         <p>Minister</p>
                         <Avatar label="M" shape='circle'/>
                     </div>
+                    <OverlayPanel ref="op">
+                        <Link  :href="link.href" class="flex items-center gap-3">
+                            <i :class="`pi ${link.icon}`"></i>
+                            <span>{{ link.name }}</span>
+                        </Link>
+                    </OverlayPanel>
                 </div>
             </div>
             <main class="bg-slate-200">
@@ -76,6 +92,7 @@ const nodes = ref([
 .p-treenode-toggler-icon {
     @apply bg-transparent text-xs
 }
+
 a {
     @apply text-white p-4 bg-neutral-600/20 hover:bg-neutral-600/40 transition-colors duration-300 hover:text-primary;
 
