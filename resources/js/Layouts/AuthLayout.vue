@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import Section from "@/Components/Section.vue";
 import Button from "primevue/button";
+import {Link} from "@inertiajs/vue3"
 
 </script>
 
 <template>
-    <div class="relative h-screen">
+    <div class="relative h-screen w-full overflow-hidden">
         <div class="absolute inset-0  h-full w-full" style="background-color: var(--highlight-bg);">
 
 
@@ -18,10 +19,11 @@ import Button from "primevue/button";
                     class="size-96 bg-red-400 rounded-full absolute right-80 top-72 mix-blend-multiply filter blur-2xl opacity-30 animate-blob animation-delay-400"></div>
             </div>
         </div>
-        <Section class="relative">
-            <main class="grid items-center justify-center h-screen w-full">
-                <slot/>
-            </main>
+        <Section class="relative grid place-items-center h-screen">
+            <Link href="/">
+                <Button severity="secondary" icon="pi pi-angle-double-left" class="absolute top-5 left-10"></Button>
+            </Link>
+            <slot/>
         </Section>
     </div>
 </template>

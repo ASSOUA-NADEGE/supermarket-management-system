@@ -15,8 +15,7 @@ defineOptions({
 </script>
 
 <template>
-    <div class="space-y-10">
-
+    <div class="space-y-10 px-4 py-2">
         <div class="card">
             <div class="justify-between items-center flex pb-2">
                 <p class="px-2">Order Table</p>

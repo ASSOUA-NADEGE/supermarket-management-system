@@ -7,13 +7,12 @@
                 v-for="role in $props.roles"
                 :href="'/auth/' + kebabCase(role.name)"
             >
-                <Card>
-                    <template #content>
-                        {{ role.name }}
-                    </template>
-                </Card>
+                <AuthCard>
+                    {{ role.name }}
+                </AuthCard>
             </Link>
         </div>
+
     </div>
 </template>
 
@@ -21,7 +20,7 @@
 import {ref} from "vue";
 import {kebabCase} from "lodash";
 import AuthLayout from "@/Layouts/AuthLayout.vue";
-import Card from "primevue/card"
+import AuthCard from "@/Components/AuthCard.vue"
 import {Link} from "@inertiajs/vue3";
 import DefaultLayout from "@/Layouts/DefaultLayout.vue";
 

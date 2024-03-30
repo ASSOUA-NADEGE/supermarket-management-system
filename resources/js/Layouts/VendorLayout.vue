@@ -30,26 +30,26 @@ const links = [
 <template>
     <div class="">
         <Sidebar class='' v-model:visible="visible"
-                 :modal="false"
+                 :modal="true"
                  :show-close-icon="true" position="left">
             <menu class="list-none p-0 m-0 overflow-hidden space-y-4">
                 <Link
-                    class="flex text-neutral-700  align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple"
-                    :class="{'bg-neutral-800/20 text-neutral-200': $page.component === link.component}"
+                    class="flex   align-items-center cursor-pointer p-3   transition-duration-150 transition-colors "
+                    :class="[$page.component === link.component ? 'active-link':'hover:bg-neutral-200']"
                     v-for="link in links" :href="link.to">
                     <i :class="link.icon" class="mr-3"></i>
                     <span class="font-medium">{{ link.label }}</span>
                 </Link>
             </menu>
-            <Button @click="logoutDialog=true" class="absolute bottom-2" severity="secondary" icon="pi pi-power-off"
-                    icon-pos="right" label="logout"></Button>
-            <Dialog class="p-2" v-model:visible="logoutDialog" modal draggable :base-z-index="100" closable>
-                <p>Do you really want to logout ??</p>
-                <div class="space-x-4">
-                    <Button severity="secondary" @click="logoutDialog=false">cancel</Button>
-                    <Button severity="danger">confirm</Button>
-                </div>
-            </Dialog>
+<!--            <Button @click="logoutDialog=true" class="absolute bottom-2" severity="secondary" icon="pi pi-power-off"-->
+<!--                    icon-pos="right" label="logout"></Button>-->
+<!--            <Dialog class="p-2" v-model:visible="logoutDialog" modal draggable :base-z-index="100" closable>-->
+<!--                <p>Do you really want to logout ??</p>-->
+<!--                <div class="space-x-4">-->
+<!--                    <Button severity="secondary" @click="logoutDialog=false">cancel</Button>-->
+<!--                    <Button severity="danger">confirm</Button>-->
+<!--                </div>-->
+<!--            </Dialog>-->
         </Sidebar>
         <div class="w-full">
             <MenuBar :items="links" class="sticky top-0 z-20">
@@ -66,7 +66,7 @@ const links = [
                     </div>
                 </template>
             </MenuBar>
-            <main class="bg-neutral-100 ">
+            <main class="bg-slate-200 ">
                 <slot/>
             </main>
         </div>
@@ -74,8 +74,8 @@ const links = [
 </template>
 
 <style>
-.bg-primary {
-    background-color: var(--primary-color)
+.active-link {
+    background-color: var(--highlight-bg);
 }
 </style>
 

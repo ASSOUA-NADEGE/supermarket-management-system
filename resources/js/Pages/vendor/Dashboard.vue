@@ -19,8 +19,8 @@ defineOptions({
         <Link href="/vendor/orders/create">
             <Button label="New Order" icon="pi pi-plus" icon-pos="right"></Button>
         </Link>
-        <div class="grid grid-cols-3 gap-10">
-            <Card v-for="i in 3">
+        <div class="grid grid-cols-3 gap-8">
+            <Card v-for="i in 3" class="rounded-none">
                 <template #content>
                     <div class="space-y-0">
                         <h5>Today's Order</h5>
@@ -35,7 +35,7 @@ defineOptions({
             <SalesChart class="col-span-2"/>
             <ProductSalesChart/>
         </div>
-        <Card>
+        <Card class="rounded-none">
             <template #content>
                 <DataTable :value="products" tableStyle="min-width: 50rem">
                     <Column field="code" header="Code"></Column>

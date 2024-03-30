@@ -2,7 +2,7 @@
     <div class="">
         <h1 class="text-center">Select User</h1>
         <div class="flex items-center justify-center gap-4">
-            <Card
+            <AuthCard
                 class=""
                 v-for="user in $props.users"
                 @click="
@@ -21,10 +21,8 @@
                         ]
                     "
             >
-                <template #content>
                     {{ user.name }}
-                </template>
-            </Card>
+            </AuthCard>
         </div>
     </div>
     <Dialog v-model:visible="showPassword" modal :base-z-index="100">
@@ -69,7 +67,7 @@ import {router, useForm} from "@inertiajs/vue3";
 import {debounce} from "lodash";
 
 import AuthLayout from "@/Layouts/AuthLayout.vue";
-import Card from "primevue/card";
+import AuthCard from "@/Components/AuthCard.vue";
 import Button from "primevue/button";
 import TextInput from "primevue/inputtext";
 import Dialog from "primevue/dialog";
@@ -95,7 +93,7 @@ const handleLogin = () => {
 
     form.post("/auth", {
         onSuccess: () => {
-            router.visit("/dashboard");
+            router.visit("vendor/dashboard");
         },
     });
 

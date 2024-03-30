@@ -1,5 +1,5 @@
 <template>
-    <Card>
+    <Card class="rounded-none">
         <template #header>
             <h2 class="px-4">Yearly Sales</h2>
         </template>

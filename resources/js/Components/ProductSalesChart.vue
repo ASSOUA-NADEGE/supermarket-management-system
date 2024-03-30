@@ -1,5 +1,5 @@
 <template>
-    <Card class="card flex justify-center items-center">
+    <Card class="card flex justify-center items-center rounded-none">
         <template #content>
             <Chart type="pie" :data="chartData" :options="chartOptions" class="w-full"/>
         </template>
