@@ -8,6 +8,7 @@ import { ZiggyVue } from "../../vendor/tightenco/ziggy";
 import PrimeVue from "primevue/config";
 import Ripple from "primevue/ripple";
 import StyleClass from "primevue/styleclass";
+import ConfirmationService from 'primevue/confirmationservice';
 import { createPinia } from "pinia";
 
 const appName = import.meta.env.VITE_APP_NAME || "Laravel";
@@ -27,6 +28,7 @@ createInertiaApp({
             })
             .directive("ripple", Ripple)
             .directive("styleclass", StyleClass)
+            .use(ConfirmationService)
             .use(ZiggyVue)
             .use(createPinia())
             .mount(el);

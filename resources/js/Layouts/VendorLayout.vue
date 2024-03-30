@@ -7,6 +7,7 @@ import Panel from "primevue/panel";
 import MenuBar from "primevue/menubar";
 import {Link} from "@inertiajs/vue3"
 import Dialog from "primevue/dialog"
+import UserBadge from "@/Components/UserBadge.vue";
 
 const visible = ref(false);
 const logoutDialog = ref(false)
@@ -59,10 +60,7 @@ const links = [
                 <template #end>
                     <div class="flex items-center gap-4 px-2">
                         <Button badge="1" badge-severity="danger" severity="secondary" icon="pi pi-bell"></Button>
-                        <div class="flex items-center gap-2">
-                            <p>Minister</p>
-                            <Avatar label="M" shape='circle'/>
-                        </div>
+                        <UserBadge />
                     </div>
                 </template>
             </MenuBar>

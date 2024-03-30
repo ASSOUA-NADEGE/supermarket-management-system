@@ -1,16 +1,12 @@
 <script setup lang="ts">
 import Button from "primevue/button";
-import Avatar from "primevue/avatar";
-import {ref} from "vue";
-import Tree from "primevue/tree";
 import {Link} from "@inertiajs/vue3"
-import OverlayPanel from "primevue/overlaypanel";
+import UserBadge from "@/Components/UserBadge.vue";
 
 
-const op = ref();
-const toggle = (event: any) => {
-    op.value.toggle(event);
-}
+
+
+
 const links = [
     {
         name: 'Dashboard',
@@ -53,7 +49,7 @@ const links = [
                 </div>
 
                 <nav class="grid gap-0.5">
-                    <Link v-for="link in links" :href="link.href" class="flex items-center gap-3">
+                    <Link v-for="link in links" :href="link.href" class="flex link items-center gap-3">
                         <i :class="`pi ${link.icon}`"></i>
                         <span>{{ link.name }}</span>
                     </Link>
@@ -66,16 +62,7 @@ const links = [
                     <Button icon="pi pi-search" severity="secondary"></Button>
                     <Button icon="pi pi-cog" severity="secondary"></Button>
                     <Button badge="1" badge-severity="danger" severity="secondary" icon="pi pi-bell"></Button>
-                    <div class="flex items-center gap-2 cursor-pointer" @click="toggle">
-                        <p>Minister</p>
-                        <Avatar label="M" shape='circle'/>
-                    </div>
-                    <OverlayPanel ref="op">
-                        <Link  :href="link.href" class="flex items-center gap-3">
-                            <i :class="`pi ${link.icon}`"></i>
-                            <span>{{ link.name }}</span>
-                        </Link>
-                    </OverlayPanel>
+                    <UserBadge />
                 </div>
             </div>
             <main class="bg-slate-200">
@@ -93,7 +80,7 @@ const links = [
     @apply bg-transparent text-xs
 }
 
-a {
+.link {
     @apply text-white p-4 bg-neutral-600/20 hover:bg-neutral-600/40 transition-colors duration-300 hover:text-primary;
 
 }
