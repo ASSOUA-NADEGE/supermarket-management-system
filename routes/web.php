@@ -23,7 +23,7 @@ Route::prefix('vendor')
         Route::get('/orders', [VendorController::class, 'indexOrder']);
         Route::get('/orders/create', [VendorController::class, 'createOrder']);
 
-        $router->resource('orders', \App\Http\Controllers\OrderController::class)->only('store', 'update', 'destroy');
+        $router->resource('orders', \App\Http\Controllers\OrderController::class)->only('show', 'store', 'update', 'destroy');
     });
 
 require base_path('routes/admin.php');
