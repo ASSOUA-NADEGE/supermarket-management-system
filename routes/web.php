@@ -16,7 +16,7 @@ Route::prefix('vendor')
     ->name('vendor.')
     ->middleware(['auth', 'role:vendor'])
     ->group(function ($router) {
-        $router->redirect('', 'dashboard');
+        $router->redirect('', '/vendor/dashboard');
         Route::get('/dashboard', [VendorController::class, 'dashboard']);
         Route::get('/products', [VendorController::class, 'indexProduct']);
         Route::get('/profile', [VendorController::class, 'profile']);
