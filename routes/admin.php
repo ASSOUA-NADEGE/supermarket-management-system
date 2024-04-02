@@ -5,7 +5,7 @@ use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->group(function(){
-    Route::redirect('/','/admin/dashboard');
+    Route::redirect('/','admin/dashboard');
     Route::get('dashboard',[AdminController::class,'dashboard'])->name('admin.dashboard');
     Route::get('users',[AdminController::class,'indexUsers'])->name('admin.users');
     Route::get('users/create',[AdminController::class,'createUsers'])->name('admin.users.create');
