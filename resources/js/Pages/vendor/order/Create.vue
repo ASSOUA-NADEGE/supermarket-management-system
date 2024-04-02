@@ -2,18 +2,18 @@
 import VendorLayout from "@/Layouts/VendorLayout.vue";
 import Divider from "primevue/divider";
 import Button from "primevue/button";
-import Card from "primevue/card"
+import Card from "primevue/card";
 import AutoComplete from "primevue/autocomplete";
-import {ref, onMounted} from "vue";
+import { ref, onMounted } from "vue";
 import Rxjs from "@/Components/rxjs.vue";
 import Dropdown from "primevue/dropdown";
 import UseCart from "@/Stores/cart";
 import IconField from "primevue/iconfield";
 import InputIcon from "primevue/inputicon";
 import DefaultLayout from "@/Layouts/DefaultLayout.vue";
-import {router} from "@inertiajs/vue3";
-import {from, useSubscription} from "@vueuse/rxjs";
-import {ajax} from "rxjs/ajax";
+import { router } from "@inertiajs/vue3";
+import { from, useSubscription } from "@vueuse/rxjs";
+import { ajax } from "rxjs/ajax";
 import {
     distinctUntilChanged,
     tap,
@@ -81,7 +81,6 @@ useSubscription(
                 <div class="flex py-2 gap-2">
                     <div class="p-fluid card w-full">
                         <AutoComplete
-                            multiple
                             placeholder="type product..."
                             v-model="autocomplete"
                             :suggestions="
@@ -112,19 +111,22 @@ useSubscription(
                                 class="object-contain object-center w-full h-full"
                             />
                         </div>
-                        <p class="text-center font-bold truncate ">
+                        <p class="text-center font-bold truncate">
                             {{ product.name }}
                         </p>
                         <div class="flex justify-between items-center">
-                            <Button severity="secondary" icon="pi pi-shopping-cart" @click="cart.add(product)"></Button>
+                            <Button
+                                severity="secondary"
+                                icon="pi pi-shopping-cart"
+                                @click="cart.add(product)"
+                            ></Button>
                             <p class="text-sm">{{ product.price }}XAF</p>
                         </div>
                     </template>
-
                 </Card>
             </div>
         </div>
-        <Divider layout="vertical"/>
+        <Divider layout="vertical" />
         <div class="w-1/3 px-2 bg-white">
             <div class="">
                 <div class=" ">
@@ -133,7 +135,7 @@ useSubscription(
                         <p>Cart({{ cart.data.length }})</p>
                         <Button severity="secondary" icon="pi pi-plus"></Button>
                     </div>
-                    <Divider/>
+                    <Divider />
                 </div>
                 <div>
                     <div
@@ -142,7 +144,7 @@ useSubscription(
                         <p>Order list #1</p>
                         <p>7 sept 2017 | 17:20:01</p>
                     </div>
-                    <Divider/>
+                    <Divider />
                     <div>
                         <TransitionGroup
                             enter-active-class="transition-all duration-700"
@@ -175,7 +177,7 @@ useSubscription(
                                         severity="secondary"
                                         aria-readonly
                                         class="w-10 h-full flex items-center justify-center bg-neutral-100"
-                                    >{{ product.quantity }}
+                                        >{{ product.quantity }}
                                     </Button>
                                     <Button
                                         @click="cart.increment(product)"
@@ -188,7 +190,7 @@ useSubscription(
                     </div>
                 </div>
                 <div>
-                    <Divider/>
+                    <Divider />
                     <div class="space-y-4">
                         <div class="text-sm flex justify-between items-center">
                             <span>Subtotal</span>
@@ -210,9 +212,8 @@ useSubscription(
                                 severity="secondary"
                             ></Button>
                             <Button severity="secondary" @click="cart.clear"
-                            >Cancel
-                            </Button
-                            >
+                                >Cancel
+                            </Button>
                             <Button
                                 class="flex-grow justify-center"
                                 @click="
@@ -228,9 +229,8 @@ useSubscription(
                                         },
                                     )
                                 "
-                            >Sell
-                            </Button
-                            >
+                                >Sell
+                            </Button>
                         </div>
                     </div>
                 </div>
