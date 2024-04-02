@@ -6,26 +6,18 @@
                 class=""
                 v-for="user in $props.users"
                 @click="
-                        [
-                            (currentUser = user),
-                            (form.email = user.email),
-                            (showPassword = true),
-                            debounce(
-                                () =>
-                                    (
-                                        $refs.passwordInputRef as HTMLInputElement
-                                    ).focus(),
-
-                                1000,
-                            ),
-                        ]
-                    "
+                    [
+                        (currentUser = user),
+                        (form.email = user.email),
+                        (showPassword = true),
+                    ]
+                "
             >
-                    {{ user.name }}
+                {{ user.name }}
             </AuthCard>
         </div>
     </div>
-    <Dialog v-model:visible="showPassword" modal :base-z-index="100">
+    <Dialog v-model:visible="showPassword" modal :base-z-index="100" @show="">
         <template #header>
             <h3 class="capitalize">{{ currentUser.name }}</h3>
         </template>
@@ -37,34 +29,28 @@
                     type="password"
                     v-model="form.password"
                     @keyup.enter="handleLogin"
-                    ref="passwordInputRef"
+                    autofocus
                 />
                 <small id="password-help">Enter your password.</small>
             </div>
-
         </template>
         <template #footer>
-            <Button label="Cancel" text severity="secondary" outlined @click="[(showPassword = false), (password = '')]" autofocus/>
-            <Button @click="handleLogin" label="Login" outlined  autofocus/>
+            <Button
+                label="Cancel"
+                text
+                severity="secondary"
+                outlined
+                @click="[(showPassword = false), (password = '')]"
+            />
+            <Button @click="handleLogin" label="Login" outlined autofocus />
         </template>
     </Dialog>
-    <!--    <Modal-->
-    <!--        :show="showPassword"-->
-    <!--        closeable-->
-    <!--        @close="[(showPassword = false), (password = '')]"-->
-    <!--        class="text-center"-->
-    <!--    >-->
-    <!--        <div class="p-2 flex flex-col">-->
-    <!--            Please Enter your password for {{ currentUser.name }}-->
-
-    <!--        </div>-->
-    <!--    </Modal>-->
 </template>
 
 <script setup lang="ts">
-import {reactive, ref, watch} from "vue";
-import {router, useForm} from "@inertiajs/vue3";
-import {debounce} from "lodash";
+import { reactive, ref, watch } from "vue";
+import { router, useForm } from "@inertiajs/vue3";
+import { debounce } from "lodash";
 
 import AuthLayout from "@/Layouts/AuthLayout.vue";
 import AuthCard from "@/Components/AuthCard.vue";
@@ -73,10 +59,9 @@ import TextInput from "primevue/inputtext";
 import Dialog from "primevue/dialog";
 import DefaultLayout from "@/Layouts/DefaultLayout.vue";
 
-
 defineOptions({
-    layout: [DefaultLayout,AuthLayout]
-})
+    layout: [DefaultLayout, AuthLayout],
+});
 
 const visible = ref(true);
 const props = defineProps<{ users: Record<string, any> }>();
@@ -91,13 +76,7 @@ const form = useForm({
 const handleLogin = () => {
     if (form.password.value === "") return;
 
-    form.post("/auth", {
-        onSuccess: () => {
-            router.visit("vendor/dashboard");
-        },
-    });
-
-    // router.visit("/home");
+    form.post("/auth", {});
 };
 </script>
 
