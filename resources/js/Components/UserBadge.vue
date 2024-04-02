@@ -34,8 +34,8 @@ const confirm1 = () => {
 <template>
     <div>
         <div class="flex items-center gap-2 cursor-pointer" @click="toggle">
-            <p>Minister</p>
-            <Avatar label="M" shape='circle'/>
+            <p class="capitalize">{{ $page.props.auth.user.name }}</p>
+            <Avatar :label="$page.props.auth.user.name[0].toUpperCase()" shape='circle'/>
         </div>
         <ConfirmDialog></ConfirmDialog>
         <OverlayPanel ref="op" class="overlow-hidden">
