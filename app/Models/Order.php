@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\OrderStatus;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -12,6 +13,10 @@ class Order extends Model
     use HasFactory, HasUlids;
 
     protected $guarded = [];
+
+    protected $appends = [
+        'total'
+    ];
 
     protected function casts()
     {
@@ -28,5 +33,10 @@ class Order extends Model
     public function products()
     {
         return $this->belongsToMany(Product::class);
+    }
+
+    public function total(): Attribute
+    {
+        return new Attribute(get: fn () => $this->products->sum('price'));
     }
 }
