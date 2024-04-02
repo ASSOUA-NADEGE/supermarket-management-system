@@ -17,18 +17,7 @@
             </AuthCard>
         </div>
     </div>
-    <Dialog
-        v-model:visible="showPassword"
-        modal
-        :base-z-index="100"
-        @show="
-            debounce(
-                () => ($refs.passwordInputRef as HTMLInputElement).focus(),
-
-                1000,
-            )
-        "
-    >
+    <Dialog v-model:visible="showPassword" modal :base-z-index="100" @show="">
         <template #header>
             <h3 class="capitalize">{{ currentUser.name }}</h3>
         </template>
@@ -40,7 +29,7 @@
                     type="password"
                     v-model="form.password"
                     @keyup.enter="handleLogin"
-                    ref="passwordInputRef"
+                    autofocus
                 />
                 <small id="password-help">Enter your password.</small>
             </div>
@@ -52,22 +41,10 @@
                 severity="secondary"
                 outlined
                 @click="[(showPassword = false), (password = '')]"
-                autofocus
             />
             <Button @click="handleLogin" label="Login" outlined autofocus />
         </template>
     </Dialog>
-    <!--    <Modal-->
-    <!--        :show="showPassword"-->
-    <!--        closeable-->
-    <!--        @close="[(showPassword = false), (password = '')]"-->
-    <!--        class="text-center"-->
-    <!--    >-->
-    <!--        <div class="p-2 flex flex-col">-->
-    <!--            Please Enter your password for {{ currentUser.name }}-->
-
-    <!--        </div>-->
-    <!--    </Modal>-->
 </template>
 
 <script setup lang="ts">
