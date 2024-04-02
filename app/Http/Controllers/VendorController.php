@@ -24,7 +24,9 @@ class VendorController extends Controller
 
     public function indexOrder()
     {
-        return inertia('vendor/order/Index');
+        return inertia('vendor/order/Index', [
+            'orders' => fn () => Order::with('vendor')->where('vendor_id', auth()->user()->id)->get()
+        ]);
     }
 
     public function indexProduct()
