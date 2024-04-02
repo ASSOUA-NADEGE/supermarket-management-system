@@ -8,8 +8,9 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-// Route::get('/', [WelcomeController::class, 'landing'])->name('landing');
-//Route::get('/products', [ProductController::class, 'index'])->name('products');
+Route::get('/', function () {
+    return redirect(request()->user()->hasRole('admin') ? 'admin' : 'vendor');
+})->name('landing');
 Route::resource('products', ProductController::class);
 
 Route::prefix('vendor')
@@ -55,6 +56,16 @@ Route::prefix('auth')->middleware('guest')->group(function () {
         Route::post('', 'login');
         Route::get('/', 'home');
         Route::get('/{role}', 'role');
+    });
+});
+
+Route::middleware('auth')->group(function () {
+    Route::match(['GET', 'POST'], '/logout', function () {
+        request()->user()->logout();
+
+        session()->invalidate();
+
+        return redirect('auth');
     });
 });
 
