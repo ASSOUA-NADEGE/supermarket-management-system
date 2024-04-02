@@ -61,7 +61,7 @@ Route::prefix('auth')->middleware('guest')->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::match(['GET', 'POST'], '/logout', function () {
-        request()->user()->logout();
+        auth()->logout();
 
         session()->invalidate();
 
