@@ -12,7 +12,9 @@ class VendorController extends Controller
 {
     public function dashboard()
     {
-        return inertia('vendor/Dashboard');
+        return inertia('vendor/Dashboard', [
+            'orders' => Order::query()->where('vendor_id', auth()->user()->id)->get(),
+        ]);
     }
 
     public function createOrder()
