@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', function () {
-    return redirect(request()->user()->hasRole('admin') ? 'admin' : 'vendor');
+    return redirect(request()->user()?->hasRole('admin') ? 'admin' : 'vendor');
 })->name('landing');
 Route::resource('products', ProductController::class);
 
