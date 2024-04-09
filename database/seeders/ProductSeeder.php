@@ -271,7 +271,7 @@ class ProductSeeder extends Seeder
                     collect($products)
                         ->filter(fn ($product) => $category->name === $product['category'])
                         ->map(function ($product) use ($category) {
-                            $product['image'] = Storage::disk('public')->putFile('', Storage::disk('local')->path('/private/' . $product['image']));
+                            Storage::disk('local')->copy('private/' . $product['image'], 'public/' . $product['image']);
 
                             unset($product['category']);
                             unset($product['rating']);

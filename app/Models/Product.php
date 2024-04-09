@@ -20,8 +20,8 @@ class Product extends Model
         return $this->belongsTo(Category::class);
     }
 
-    public function image(): Attribute
-    {
-        return new Attribute(get: fn ($value) => '/storage/' . $value);
-    }
+    // public function image(): Attribute
+    // {
+    //     return new Attribute(get: fn ($value) => '/storage/' . $value);
+    // }
 }
