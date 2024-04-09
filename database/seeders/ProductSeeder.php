@@ -263,14 +263,15 @@ class ProductSeeder extends Seeder
             ]
         ];
 
+        Storage::disk('public')->delete('');
+
         Category::all()->each(function ($category) use ($products) {
             Product::factory()
                 ->createMany(
                     collect($products)
                         ->filter(fn ($product) => $category->name === $product['category'])
                         ->map(function ($product) use ($category) {
-                            Storage::disk('public')->putFile('', Storage::disk('local')->path('/private/' . $product['image']));
-                            $product['image'] = "/storage/{$product['image']}";
+                            $product['image'] = Storage::disk('public')->putFile('', Storage::disk('local')->path('/private/' . $product['image']));
 
                             unset($product['category']);
                             unset($product['rating']);
