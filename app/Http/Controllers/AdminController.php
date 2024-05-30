@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Order;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -30,10 +31,10 @@ class AdminController extends Controller
     }
 
     public function indexOrders(){
-        return inertia('admin/orders/Index');
+        return inertia('admin/orders/Index', ['orders' => Order::query()->latest()->paginate()]);
     }
 
     public function indexCategories(){
-        return inertia('admin/categories/Index');
+        return inertia('admin/categories/Index')->with('categories', Category::query()->orderBy('name')->paginate());
     }
 }
