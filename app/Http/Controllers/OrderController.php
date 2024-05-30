@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Order\DecrementOrderProductsStock;
 use App\Models\Order;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
+use App\Actions\Order\AttachCartProducts;
+use Illuminate\Support\Facades\Pipeline;
 
 class OrderController extends Controller
 {
@@ -36,9 +39,12 @@ class OrderController extends Controller
             'vendor_id' => auth()->user()->getAuthIdentifier()
         ]);
 
-        collect($attributes['cart'])->each(fn ($product) => $order->products()->attach($product['id'], ['quantity' => $product['quantity']]));
-
-        return back()->with('flash', 'Order created successfully!');
+        return Pipeline::send($order)
+            ->through([
+                AttachCartProducts::class,
+                DecrementOrderProductsStock::class,
+            ])
+            ->thenReturn(back()->with('flash', 'Order created successfully!'));
     }
 
     /**
