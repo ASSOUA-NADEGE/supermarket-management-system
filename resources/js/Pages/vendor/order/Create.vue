@@ -20,13 +20,20 @@ import {
     throttleTime,
     debounceTime,
     switchMap,
+    combineLatestWith,
+    withLatestFrom,
+    combineLatest,
+    startWith,
+    filter,
 } from "rxjs";
+import { Product } from "@/types";
 
 const cart = UseCart();
 const value = ref(0);
 const fetching = ref(false);
 const autocomplete = ref<string>();
-const autocompleteProducts = ref([]);
+const autocompleteProducts = ref<Array<Product>>([]);
+const category = ref<string>();
 
 defineProps<{
     products: any;
@@ -41,8 +48,14 @@ defineOptions({
 // });
 
 useSubscription(
-    from(autocomplete)
+    // from(autocomplete)
+    combineLatest([
+        from(autocomplete).pipe(startWith("")),
+        from(category).pipe(startWith("")),
+    ])
         .pipe(
+            filter(([q, category]) => q !== "" || category !== ""),
+
             // wait for 300ms before emitting
             debounceTime(300),
 
@@ -52,20 +65,21 @@ useSubscription(
             // Start fetching if a distinct value is emitted
             tap((value) => {
                 fetching.value = true;
-                console.log("fetching data from api");
             }),
 
             // emit a new value after every 1.5s only
             throttleTime(700),
 
             // Ignore previous values when new one comes in to make the request
-            switchMap((q) =>
+            switchMap(([q, category]) =>
                 ajax
-                    .getJSON(`/api/products?q=${q === "" ? null : q.trim()}`)
+                    .getJSON<
+                        Array<Product>
+                    >(`/api/products?${new URLSearchParams({ q: String(q), category: String(category) }).toString()}`)
                     .pipe(
                         tap((data) => {
-                            fetching.value = false;
                             autocompleteProducts.value = data;
+                            fetching.value = false;
                         }),
                     ),
             ),
@@ -90,8 +104,12 @@ useSubscription(
                     </div>
                     <Dropdown
                         :options="
-                            $props.categories.map((category) => category.name)
+                            $props.categories.map(
+                                (category: Record<string, any>) =>
+                                    category.name,
+                            )
                         "
+                        v-model="category"
                         placeholder="Select Category"
                     />
                 </div>
