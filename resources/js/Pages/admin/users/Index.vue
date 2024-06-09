@@ -26,14 +26,21 @@ defineProps<{
                 </div>
             </template>
             <Column field="Avatar" header="Avatar">
-                <template #body="slotProps">
-                    <Avatar :label="slotProps.data.name[0].toUpperCase()"/>
+                <template #body="{data: user}">
+                    <Avatar :label="user.name[0].toUpperCase()"/>
                 </template>
             </Column>
             <Column field="name" sortable header="Name"></Column>
             <Column field="Email" header="Email">
-                <template #body="slotProps">
-                    {{ slotProps.data.email }}
+                <template #body="{data: user}">
+                    {{user.email}}
+                </template>
+            </Column>
+            <Column field="Action" header="Action">
+                <template #body="{ data: user }">
+                    <Link :href="route('admin.users.edit', user)">
+                        <Button outlined size="small">Edit</Button>
+                    </Link>
                 </template>
             </Column>
             <template #footer> In total there are {{ users ? users.length : 0 }} users.</template>

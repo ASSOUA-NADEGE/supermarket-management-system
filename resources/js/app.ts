@@ -9,6 +9,7 @@ import PrimeVue from "primevue/config";
 import Ripple from "primevue/ripple";
 import StyleClass from "primevue/styleclass";
 import ConfirmationService from 'primevue/confirmationservice';
+import ToastService from 'primevue/toastservice';
 import { createPinia } from "pinia";
 
 const appName = import.meta.env.VITE_APP_NAME || "Laravel";
@@ -30,6 +31,7 @@ createInertiaApp({
             .directive("styleclass", StyleClass)
             .use(ConfirmationService)
             .use(ZiggyVue)
+            .use(ToastService)
             .use(createPinia())
             .mount(el);
     },

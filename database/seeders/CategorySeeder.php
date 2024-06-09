@@ -15,14 +15,15 @@ class CategorySeeder extends Seeder
      */
     public function run(): void
     {
+        $categories = collect(["electronics","jewelery","men's clothing","women's clothing"]);
         $icons = [
             "electronics" => "pi pi-fw pi-desktop",
             "jewelery" => "pi pi-fw pi-heart",
             "men's clothing" => "pi pi-fw pi-tshirt",
             "women's clothing" => "pi pi-fw fi-tshirt",
         ];
-        $api_categories = collect(Http::get('https://fakestoreapi.com/products/categories')->json());
-        $api_categories->each(function ($category) use ($icons) {
+//        $api_categories = collect(Http::get('https://fakestoreapi.com/products/categories')->json());
+        $categories->each(function ($category) use ($icons) {
             Category::create(["icon" => $icons[$category], "name" => $category, "description" => "$category description"]);
         });
     }

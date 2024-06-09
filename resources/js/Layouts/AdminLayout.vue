@@ -2,6 +2,7 @@
 import Button from "primevue/button";
 import {Link} from "@inertiajs/vue3"
 import UserBadge from "@/Components/UserBadge.vue";
+import Search from "@/Components/Search.vue";
 
 
 
@@ -50,8 +51,8 @@ const links = [
 
                 <nav class="grid gap-0.5">
                     <Link v-for="link in links" :href="link.href" class="flex link items-center gap-3">
-                        <i :class="`pi ${link.icon}`"></i>
-                        <span>{{ link.name }}</span>
+                        <i :class="[`pi ${link.icon}`,$page.component === link.component ? 'text-primary': ''   ]"></i>
+                        <span :class="[$page.component === link.component ? 'text-primary': '']">{{ link.name }}</span>
                     </Link>
                 </nav>
             </div>
@@ -59,7 +60,7 @@ const links = [
         <div class="w-full ">
             <div class="h-14 shadow w-full top-0 sticky bg-white z-10 flex justify-end items-center pr-4">
                 <div class="flex items-center gap-2 ">
-                    <Button icon="pi pi-search" severity="secondary"></Button>
+                    <Search />
                     <Button icon="pi pi-cog" severity="secondary"></Button>
                     <Button badge="1" badge-severity="danger" severity="secondary" icon="pi pi-bell"></Button>
                     <UserBadge />

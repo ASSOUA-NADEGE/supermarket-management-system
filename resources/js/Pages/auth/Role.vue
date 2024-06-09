@@ -1,6 +1,9 @@
 <template>
     <div class="">
         <h1 class="text-center">Select User</h1>
+        <ul class="text-center text-red-600">
+            <InlineMessage severity="error" v-for="error in $page.props.errors">{{error}}</InlineMessage>
+        </ul>
         <div class="flex items-center justify-center gap-4">
             <AuthCard
                 class=""
@@ -51,6 +54,7 @@
 import { reactive, ref, watch } from "vue";
 import { router, useForm } from "@inertiajs/vue3";
 import { debounce } from "lodash";
+import InlineMessage from 'primevue/inlinemessage';
 
 import AuthLayout from "@/Layouts/AuthLayout.vue";
 import AuthCard from "@/Components/AuthCard.vue";

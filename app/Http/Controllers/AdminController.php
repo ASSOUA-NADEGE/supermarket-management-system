@@ -22,6 +22,10 @@ class AdminController extends Controller
         return inertia('admin/users/Create');
     }
 
+    public function editUsers(User $user){
+        return inertia('admin/users/Show',["user" => $user]);
+    }
+
     public function indexProducts(){
         return inertia('admin/products/Index',["products" => Product::all()]);
     }
@@ -31,7 +35,7 @@ class AdminController extends Controller
     }
 
     public function indexOrders(){
-        return inertia('admin/orders/Index', ['orders' => Order::query()->latest()->paginate()]);
+        return inertia('admin/orders/Index', ['orders' => Order::query()->latest()->get()]);
     }
 
     public function indexCategories(){
