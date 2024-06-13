@@ -12,6 +12,11 @@ Route::get('/', function () {
     return redirect(request()->user()?->hasRole('admin') ? 'admin' : 'vendor');
 })->name('landing');
 Route::resource('products', ProductController::class);
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
 
 Route::prefix('vendor')
     ->name('vendor.')
@@ -43,11 +48,7 @@ require base_path('routes/admin.php');
 //         return Inertia::render('Dashboard');
 //     })->middleware(['auth', 'verified'])->name('dashboard');
 //
-//     Route::middleware('auth')->group(function () {
-//         Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-//         Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-//         Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-//     });
+
 //     require __DIR__ . '/auth.php';
 // });
 
@@ -63,9 +64,11 @@ Route::middleware('auth')->group(function () {
     Route::match(['GET', 'POST'], '/logout', function () {
         auth()->logout();
 
-        session()->invalidate();
+//        session()->invalidate();
 
-        return redirect('auth');
+        session()->flash('message', 'hello');
+
+        return redirect('auth')->with('message', 'Logout Successful!');
     });
 });
 

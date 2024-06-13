@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import InputError from '@/Components/Breeze/InputError.vue';
 import InputLabel from '@/Components/Breeze/InputLabel.vue';
-import PrimaryButton from '@/Components/Breeze/PrimaryButton.vue';
-import TextInput from '@/Components/Breeze/TextInput.vue';
+import Button from "primevue/button"
+import InputText from 'primevue/inputtext';
 import { useForm } from '@inertiajs/vue3';
 import { ref } from 'vue';
 
@@ -49,7 +49,7 @@ const updatePassword = () => {
             <div>
                 <InputLabel for="current_password" value="Current Password" />
 
-                <TextInput
+                <InputText
                     id="current_password"
                     ref="currentPasswordInput"
                     v-model="form.current_password"
@@ -64,7 +64,7 @@ const updatePassword = () => {
             <div>
                 <InputLabel for="password" value="New Password" />
 
-                <TextInput
+                <InputText
                     id="password"
                     ref="passwordInput"
                     v-model="form.password"
@@ -79,7 +79,7 @@ const updatePassword = () => {
             <div>
                 <InputLabel for="password_confirmation" value="Confirm Password" />
 
-                <TextInput
+                <InputText
                     id="password_confirmation"
                     v-model="form.password_confirmation"
                     type="password"
@@ -91,7 +91,7 @@ const updatePassword = () => {
             </div>
 
             <div class="flex items-center gap-4">
-                <PrimaryButton :disabled="form.processing">Save</PrimaryButton>
+                <Button :disabled="form.processing" outlined>Save</Button>
 
                 <Transition
                     enter-active-class="transition ease-in-out"

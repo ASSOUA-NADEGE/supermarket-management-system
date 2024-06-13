@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import DangerButton from '@/Components/Breeze/DangerButton.vue';
+import Button from 'primevue/button';
 import InputError from '@/Components/Breeze/InputError.vue';
 import InputLabel from '@/Components/Breeze/InputLabel.vue';
 import Modal from '@/Components/Breeze/Modal.vue';
 import SecondaryButton from '@/Components/Breeze/SecondaryButton.vue';
-import TextInput from '@/Components/Breeze/TextInput.vue';
+import InputText from 'primevue/inputtext';
 import { useForm } from '@inertiajs/vue3';
 import { nextTick, ref } from 'vue';
 
@@ -50,7 +50,7 @@ const closeModal = () => {
             </p>
         </header>
 
-        <DangerButton @click="confirmUserDeletion">Delete Account</DangerButton>
+        <Button @click="confirmUserDeletion" severity="danger">Delete Account</Button>
 
         <Modal :show="confirmingUserDeletion" @close="closeModal">
             <div class="p-6">
@@ -66,7 +66,7 @@ const closeModal = () => {
                 <div class="mt-6">
                     <InputLabel for="password" value="Password" class="sr-only" />
 
-                    <TextInput
+                    <InputText
                         id="password"
                         ref="passwordInput"
                         v-model="form.password"
@@ -80,16 +80,16 @@ const closeModal = () => {
                 </div>
 
                 <div class="mt-6 flex justify-end">
-                    <SecondaryButton @click="closeModal"> Cancel </SecondaryButton>
+                    <Button severity="secondary" @click="closeModal"> Cancel </Button>
 
-                    <DangerButton
+                    <Button severity="danger"
                         class="ms-3"
                         :class="{ 'opacity-25': form.processing }"
                         :disabled="form.processing"
                         @click="deleteUser"
                     >
                         Delete Account
-                    </DangerButton>
+                    </Button>
                 </div>
             </div>
         </Modal>

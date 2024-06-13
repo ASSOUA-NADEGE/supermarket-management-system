@@ -42,7 +42,7 @@ const confirm1 = () => {
         <OverlayPanel ref="op" class="overlow-hidden">
             <template #container>
                 <Link
-                    href="/profile"
+                    :href="route('profile.edit')"
                     class="flex items-center gap-3 px-4 py-2 text-neutral-600 hover:bg-neutral-400/10 text-sm"
                 >
                     <i :class="`pi pi-user`"></i>

@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import InputError from '@/Components/Breeze/InputError.vue';
 import InputLabel from '@/Components/Breeze/InputLabel.vue';
-import PrimaryButton from '@/Components/Breeze/PrimaryButton.vue';
-import TextInput from '@/Components/Breeze/TextInput.vue';
+import Button from "primevue/button";
+import InputText from 'primevue/inputtext';
 import { Link, useForm, usePage } from '@inertiajs/vue3';
+import {useDebounce} from "@vueuse/core";
 
 defineProps<{
     mustVerifyEmail?: Boolean;
@@ -16,6 +17,7 @@ const form = useForm({
     name: user.name,
     email: user.email,
 });
+const recentlySuccessful = useDebounce(form.recentlySuccessful, 3000)
 </script>
 
 <template>
@@ -32,7 +34,7 @@ const form = useForm({
             <div>
                 <InputLabel for="name" value="Name" />
 
-                <TextInput
+                <InputText
                     id="name"
                     type="text"
                     class="mt-1 block w-full"
@@ -48,7 +50,7 @@ const form = useForm({
             <div>
                 <InputLabel for="email" value="Email" />
 
-                <TextInput
+                <InputText
                     id="email"
                     type="email"
                     class="mt-1 block w-full"
@@ -82,16 +84,16 @@ const form = useForm({
             </div>
 
             <div class="flex items-center gap-4">
-                <PrimaryButton :disabled="form.processing">Save</PrimaryButton>
-
-                <Transition
-                    enter-active-class="transition ease-in-out"
-                    enter-from-class="opacity-0"
-                    leave-active-class="transition ease-in-out"
-                    leave-to-class="opacity-0"
-                >
-                    <p v-if="form.recentlySuccessful" class="text-sm text-gray-600">Saved.</p>
-                </Transition>
+                <Button type="submit" :disabled="form.processing" outlined>Save</Button>
+                {{ recentlySuccessful }}
+<!--                <Transition-->
+<!--                    enter-active-class="transition ease-in-out"-->
+<!--                    enter-from-class="opacity-0 delay-[2000ms]"-->
+<!--                    leave-active-class="transition ease-in-out"-->
+<!--                    leave-to-class="opacity-0 "-->
+<!--                >-->
+                    <p v-if="recentlySuccessful" class="text-sm text-gray-600">Saved.</p>
+<!--                </Transition>-->
             </div>
         </form>
     </section>
