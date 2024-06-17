@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Order\GetYearlySales;
 use App\Models\Category;
 use App\Models\Order;
 use App\Models\Product;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -12,9 +14,12 @@ class VendorController extends Controller
 {
     public function dashboard()
     {
-        return inertia('vendor/Dashboard', [
-            'orders' => Order::query()->where('vendor_id', auth()->user()->id)->get(),
-        ]);
+        $orders = Order::query()->where('vendor_id', auth()->user()->id)->get();
+        $chart = Pipeline::send($orders)
+            ->through([GetYearlySales::class])
+            ->thenReturn(fn (Builder $orders) => $orders);
+
+        return inertia('vendor/Dashboard', compact('orders', 'chart'));
     }
 
     public function createOrder()

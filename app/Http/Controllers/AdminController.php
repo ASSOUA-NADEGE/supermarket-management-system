@@ -2,17 +2,27 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Order\GetYearlySales;
 use App\Models\Category;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Pipeline;
 
 class AdminController extends Controller
 {
     public function dashboard(){
-        return inertia('admin/Dashboard');
+        $chart = Pipeline::send(Order::query())
+            ->through([GetYearlySales::class])
+            ->thenReturn(fn (Builder $orders) => $orders);
+
+        dump($chart);
+
+        return inertia('admin/Dashboard', compact('chart'));
     }
 
     public function indexUsers(){
@@ -35,7 +45,7 @@ class AdminController extends Controller
     }
 
     public function indexOrders(){
-        return inertia('admin/orders/Index', ['orders' => Order::query()->latest()->get()]);
+        return inertia('admin/orders/Index', ['orders' => Order::query()->latest()->paginate()]);
     }
 
     public function indexCategories(){
