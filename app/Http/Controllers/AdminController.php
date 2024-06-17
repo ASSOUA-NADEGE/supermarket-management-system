@@ -39,6 +39,21 @@ class AdminController extends Controller
     }
 
     public function indexCategories(){
-        return inertia('admin/categories/Index')->with('categories', Category::query()->orderBy('name')->paginate());
+        return inertia('admin/categories/Index')->with('categories', Category::query()->orderBy('name')->get());
+    }
+
+    public function createCategories(){
+        return inertia('admin/categories/Create');
+    }
+
+    public function storeCategories(Request $request){
+        $attributes = $request->validate(["name"=> 'required','description' => 'required']);
+        Category::create($attributes);
+        return to_route('admin.categories')->with(['toast'=>'category created successfully']);
+    }
+
+    public function deleteCategories(Category $category){
+        $category->delete();
+        return to_route('admin.categories')->with(['toast' => 'category deleted successfully']);
     }
 }

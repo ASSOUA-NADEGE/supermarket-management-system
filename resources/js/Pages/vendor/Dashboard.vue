@@ -133,13 +133,7 @@ const cards = reactive([
                             <Button
                                 outlined
                                 aria-readonly="true"
-                                :icon="[
-                                    'pi',
-                                    {
-                                        'pi-arrow-up': card.percentage >= 0,
-                                        'pi-arrow-down': card.percentage < 0,
-                                    },
-                                ]"
+                                :icon="`pi ${card.percentage >= 0 ? 'pi-arrow-up' : 'pi-arrow-down'}`"
                                 :severity="card.percentage < 0 ? 'danger' : ''"
                             ></Button>
                         </div>

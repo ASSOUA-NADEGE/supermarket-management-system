@@ -31,6 +31,10 @@ class AuthenticationController extends Controller
             throw \Illuminate\Validation\ValidationException::withMessages(['login' => 'Login Failed! Please Check credentials.']);
         }
 
+        $request->session()->regenerate();
+
+        session()->flash('toast', ['severity'=>'success','summary'=>'Successfully login','detail'=>'successfully']);
+
         if ($request->user()->hasRole('admin')) {
             return redirect('/admin');
         }

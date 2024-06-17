@@ -35,7 +35,7 @@ const links = [
                  :show-close-icon="true" position="left">
             <menu class="list-none p-0 m-0 overflow-hidden space-y-4">
                 <Link
-                    class="flex   align-items-center cursor-pointer p-3   transition-duration-150 transition-colors "
+                    class="flex  text-gray-700  align-items-center cursor-pointer p-3   transition-duration-150 transition-colors "
                     :class="[$page.component === link.component ? 'active-link':'hover:bg-neutral-200']"
                     v-for="link in links" :href="link.to">
                     <i :class="link.icon" class="mr-3"></i>

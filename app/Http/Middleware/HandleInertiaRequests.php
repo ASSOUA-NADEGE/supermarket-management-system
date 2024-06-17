@@ -34,8 +34,7 @@ class HandleInertiaRequests extends Middleware
             'auth' => [
                 'user' => $request->user(),
             ],
-            "message" => session("message"),
-            "session" => session()->all()
+            "toast" => session()->pull('toast'),
         ];
     }
 }

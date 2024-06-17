@@ -3,6 +3,7 @@ import Button from "primevue/button";
 import {Link} from "@inertiajs/vue3"
 import UserBadge from "@/Components/UserBadge.vue";
 import Search from "@/Components/Search.vue";
+import {ref} from "vue";
 
 
 
@@ -40,11 +41,16 @@ const links = [
     }
 
 ]
+
+const nav = ref<boolean>(false)
+function navFunction(){
+    nav.value = !nav.value
+}
 </script>
 
 <template>
     <div class="flex">
-        <div class="w-1/5">
+        <div class="w-1/5" :class="[nav ? 'hidden': '']">
             <div class="top-0 sticky bg-neutral-800 h-screen">
                 <div class="bg-primary h-14">
                 </div>
@@ -58,11 +64,12 @@ const links = [
             </div>
         </div>
         <div class="w-full ">
-            <div class="h-14 shadow w-full top-0 sticky bg-white z-10 flex justify-end items-center pr-4">
+            <div class="h-14 shadow w-full top-0 sticky bg-white z-10 flex justify-between items-center p-4">
+                <Button @click="navFunction()" :icon="`pi ${nav ? 'pi-bars': 'pi-times'}`" :severity="nav ? 'secondary':''" ></Button>
                 <div class="flex items-center gap-2 ">
                     <Search />
-                    <Button icon="pi pi-cog" severity="secondary"></Button>
-                    <Button badge="1" badge-severity="danger" severity="secondary" icon="pi pi-bell"></Button>
+<!--                    <Button icon="pi pi-cog" severity="secondary"></Button>-->
+                    <Button badge="" badge-severity="danger" severity="secondary"  icon="pi pi-bell"></Button>
                     <UserBadge />
                 </div>
             </div>
@@ -80,9 +87,7 @@ const links = [
 .p-treenode-toggler-icon {
     @apply bg-transparent text-xs
 }
-pstorm
 .link {
     @apply text-white p-4 bg-neutral-600/20 hover:bg-neutral-600/40 transition-colors duration-300 hover:text-primary;
-
 }
 </style>

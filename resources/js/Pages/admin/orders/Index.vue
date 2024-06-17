@@ -15,9 +15,7 @@ defineProps<{
 <DataTable :value="$props.orders" tableStyle="min-width: 50rem">
                 <Column field="id" header="id">
                     <template #body="{ data: order }">
-                        <Link :href="route('vendor.orders.show', order)">
-                            {{ order.id }}
-                        </Link>
+                        {{order.id}}
                     </template>
                 </Column>
                 <Column field="status" header="Status">

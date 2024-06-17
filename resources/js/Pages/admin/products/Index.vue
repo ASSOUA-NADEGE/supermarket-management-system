@@ -55,10 +55,10 @@ const viewProduct = (event:any) =>{
             </Column>
             <Column header="Status">
                 <template #body="slotProps">
-                    <Tag :value="slotProps.data.status" severity="success"/>
+                    <Tag :value="'stock'" severity="success"/>
                 </template>
             </Column>
-            <Column field="rating" header="Instock">
+            <Column field="rating" header="ratings">
                 <template #body="slotProps">
                     {{slotProps.data.stock}}
                 </template>

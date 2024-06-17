@@ -31,24 +31,27 @@ const form = useForm({
     image: '',
     category_id: 1
 })
+function submit(){
+    form.post(route('admin.products.store'))
+}
 </script>
 
 <template>
     <div class="p-4">
         <div class="flex items-center justify-between">
-            <p>Create Product</p>
+            <h3>Create Product</h3>
         </div>
         <Card>
             <template #content>
-                <div class="flex gap-4">
+                <form @submit.prevent="submit" class="flex gap-4">
                     <div class="w-2/3 space-y-4">
-                        <InputText placeholder="Product Name" class="w-full"/>
+                        <InputText placeholder="Product Name" v-model="form.name" class="w-full"/>
                         <div class="w-full grid grid-cols-3 gap-4">
-                            <InputText placeholder="Price"/>
-                            <InputText placeholder="Product Code"/>
-                            <InputText placeholder="Product SKU"/>
+                            <InputText v-model="form.price" placeholder="Price"/>
+                            <InputText v-model="form.code" placeholder="Product Code"/>
+                            <InputText v-model="form.sku" placeholder="Product SKU"/>
                         </div>
-                        <Editor editorStyle="height: 320px" placeholder="Product Description"/>
+                        <Editor v-model="form.description" editorStyle="height: 320px" placeholder="Product Description"/>
                         <div class="card">
                             <Toast/>
                             <FileUpload name="demo[]" url="/api/upload" @upload="onAdvancedUpload($event)"
@@ -78,15 +81,12 @@ const form = useForm({
                                 </template>
                             </Dropdown>
                         </Fieldset>
-                        <Fieldset legend="Stock">
-                            <InputNumber placeholder="select stock" class="w-full"></InputNumber>
-                        </Fieldset>
                         <div class="flex gap-2">
                             <Button class="w-full" icon="pi pi-trash" severity="danger" outlined label="Discard"></Button>
-                            <Button class="w-full" icon="pi pi-check"  outlined label="Publish"></Button>
+                            <Button class="w-full" icon="pi pi-check" label="Save"></Button>
                         </div>
                     </div>
-                </div>
+                </form>
             </template>
         </Card>
     </div>

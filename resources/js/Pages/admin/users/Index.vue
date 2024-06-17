@@ -22,7 +22,9 @@ defineProps<{
             <template #header>
                 <div class="flex flex-wrap items-center justify-between gap-2">
                     <span class="text-xl text-900 font-bold">Products</span>
-                    <Link :href="route('admin.users.create')"><Button icon="pi pi-user-plus" label="Create New" outlined/></Link>
+                    <Link :href="route('admin.users.create')">
+                        <Button icon="pi pi-user-plus" label="Create New" outlined/>
+                    </Link>
                 </div>
             </template>
             <Column field="Avatar" header="Avatar">
@@ -33,14 +35,19 @@ defineProps<{
             <Column field="name" sortable header="Name"></Column>
             <Column field="Email" header="Email">
                 <template #body="{data: user}">
-                    {{user.email}}
+                    {{ user.email }}
                 </template>
             </Column>
             <Column field="Action" header="Action">
                 <template #body="{ data: user }">
-                    <Link :href="route('admin.users.edit', user)">
-                        <Button outlined size="small">Edit</Button>
-                    </Link>
+                    <div class="space-x-2">
+                        <Link :href="route('admin.users.edit', user)">
+                            <Button outlined size="small">Edit</Button>
+                        </Link>
+                        <Link>
+                            <Button outlined size="small" severity="danger">Delete</Button>
+                        </Link>
+                    </div>
                 </template>
             </Column>
             <template #footer> In total there are {{ users ? users.length : 0 }} users.</template>

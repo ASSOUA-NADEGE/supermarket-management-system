@@ -66,9 +66,7 @@ Route::middleware('auth')->group(function () {
 
 //        session()->invalidate();
 
-        session()->flash('message', 'hello');
-
-        return redirect('auth')->with('message', 'Logout Successful!');
+        return redirect('auth')->with('toast', ['severity'=>'success','summary'=>'Successfully logout','detail'=>'successfully']);
     });
 });
 
