@@ -9,13 +9,15 @@ use App\Models\Product;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Pipeline;
 
 class VendorController extends Controller
 {
     public function dashboard()
     {
-        $orders = Order::query()->where('vendor_id', auth()->user()->id)->get();
-        $chart = Pipeline::send($orders)
+        $query = Order::query()->where('vendor_id', auth()->user()->id);
+        $orders = $query->get();
+        $chart = Pipeline::send($query)
             ->through([GetYearlySales::class])
             ->thenReturn(fn (Builder $orders) => $orders);
 

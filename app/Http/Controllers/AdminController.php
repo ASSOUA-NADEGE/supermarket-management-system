@@ -16,13 +16,13 @@ use Illuminate\Support\Facades\Pipeline;
 class AdminController extends Controller
 {
     public function dashboard(){
-        $chart = Pipeline::send(Order::query())
+        $query = Order::query();
+        $orders = $query->get();
+        $chart = Pipeline::send($query)
             ->through([GetYearlySales::class])
             ->thenReturn(fn (Builder $orders) => $orders);
 
-        dump($chart);
-
-        return inertia('admin/Dashboard', compact('chart'));
+        return inertia('admin/Dashboard', compact('chart', 'orders'));
     }
 
     public function indexUsers(){
