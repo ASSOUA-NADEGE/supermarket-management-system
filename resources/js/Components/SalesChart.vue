@@ -14,13 +14,24 @@ import Card from "primevue/card"
 import {ref, onMounted} from "vue";
 
 import Chart from 'primevue/chart';
+import { usePage } from "@inertiajs/vue3";
+
+const pageProps = usePage().props
+
+const chartData = {
+    labels: Object.keys(pageProps.chart),
+    datasets: [{
+        label: 'Total Prices',
+        data: Object.values(pageProps.chart)
+    }]
+}
 
 onMounted(() => {
-    chartData.value = setChartData();
+    // chartData.value = setChartData();
     chartOptions.value = setChartOptions();
 });
 
-const chartData = ref();
+// const chartData = ref();
 const chartOptions = ref();
 
 const setChartData = () => {
