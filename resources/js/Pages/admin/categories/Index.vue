@@ -9,7 +9,7 @@ import ConfirmDialog from "primevue/confirmdialog";
 import {useConfirm} from "primevue/useconfirm";
 const confirm = useConfirm();
 
-function confirming(id){
+function confirming(id: string|number){
     confirm.require({
         message: "Are you sure you want delete",
         header: "Danger Zone",

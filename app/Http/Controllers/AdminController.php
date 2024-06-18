@@ -21,8 +21,12 @@ class AdminController extends Controller
         $chart = Pipeline::send($query)
             ->through([GetYearlySales::class])
             ->thenReturn(fn (Builder $orders) => $orders);
-
-        return inertia('admin/Dashboard', compact('chart', 'orders'));
+        $pie = collect(Category::all())->map(function($category){
+            return $category->products->count();
+        });
+        $categories = Category::all()->pluck('name');
+        $recent_orders = $orders->take(5);
+        return inertia('admin/Dashboard', compact('chart', 'orders','pie','categories','recent_orders'));
     }
 
     public function indexUsers(){
@@ -45,7 +49,7 @@ class AdminController extends Controller
     }
 
     public function indexOrders(){
-        return inertia('admin/orders/Index', ['orders' => Order::query()->latest()->paginate()]);
+        return inertia('admin/orders/Index', ['orders' => Order::all()]);
     }
 
     public function indexCategories(){

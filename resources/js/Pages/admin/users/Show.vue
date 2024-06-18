@@ -15,12 +15,16 @@ const form = useForm({
 defineOptions({
     layout: [DefaultLayout, AdminLayout]
 })
+
+function edit(id: any){
+    form.patch(`admin/users/edit/${id}`)
+}
 </script>
 
 <template>
     <div class="p-4">
-        <h1 class="capitalize">{{user.name}} edit</h1>
-        <form class="space-y-4">
+        <h3 class="capitalize">{{user.name}} edit</h3>
+        <form class="space-y-4" @submit.prevent="edit(user.id)">
             <div class="grid gap-2">
                 <label>Name:</label>
                 <InputText v-model="form.name"></InputText>

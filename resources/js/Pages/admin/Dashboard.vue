@@ -1,22 +1,24 @@
 <script setup lang="ts">
 import DefaultLayout from "@/Layouts/DefaultLayout.vue";
 import AdminLayout from "@/Layouts/AdminLayout.vue";
-import CardInfo from "@/Components/CardInfo.vue";
 import SalesChart from "@/Components/SalesChart.vue";
 import ActivitiesCard from "@/Components/ActivitiesCard.vue";
+import ProductSalesChart from "@/Components/ProductSalesChart.vue";
+import DataTable from "primevue/datatable";
+import Column from "primevue/column";
 import Card from 'primevue/card'
-import { reactive } from "vue";
-import { differenceInHours } from "date-fns/differenceInHours";
-import { differenceInDays } from "date-fns/differenceInDays";
-import { differenceInWeeks } from "date-fns/differenceInWeeks";
-import { differenceInMonths } from "date-fns/differenceInMonths";
+import {reactive} from "vue";
+import {differenceInHours} from "date-fns/differenceInHours";
+import {differenceInDays} from "date-fns/differenceInDays";
+import {differenceInWeeks} from "date-fns/differenceInWeeks";
+import {differenceInMonths} from "date-fns/differenceInMonths";
 import Button from "primevue/button"
 
 defineOptions({
-    layout: [DefaultLayout,AdminLayout]
+    layout: [DefaultLayout, AdminLayout]
 })
 
-const props = defineProps<{ orders: Array<Record<string, any>> }>();
+const props = defineProps<{ orders: Array<Record<string, any>>, categories: string[], pie: number[], recent_orders: Array<Record<string, any>> }>();
 
 const cards = reactive([
     {
@@ -44,7 +46,7 @@ const cards = reactive([
 
                 return acc;
             },
-            { today: 0, yesterday: 0, value: 0 },
+            {today: 0, yesterday: 0, value: 0},
         ).value,
     },
     {
@@ -70,7 +72,7 @@ const cards = reactive([
 
                 return acc;
             },
-            { today: 0, yesterday: 0, value: 0 },
+            {today: 0, yesterday: 0, value: 0},
         ).value,
     },
     {
@@ -97,7 +99,7 @@ const cards = reactive([
 
                 return acc;
             },
-            { today: 0, yesterday: 0, value: 0 },
+            {today: 0, yesterday: 0, value: 0},
         ).value,
     },
 ]);
@@ -129,8 +131,52 @@ const cards = reactive([
                     </div>
                 </template>
             </Card>
-            <SalesChart class="rounded-none col-span-3" />
-            <ActivitiesCard v-for="(i,index) in 5" class="col-span-3 md:col-span-1" :class="{'md:col-span-2 md:row-span-2 col-span-3':index === 0,'md:col-span-2 col-span-3':index===4}" />
+            <SalesChart class="rounded-none col-span-3"/>
+            <ActivitiesCard title="categories charts"
+                            description="this pie chart shows infromation about categories of products">
+                <ProductSalesChart :labels="categories" :data="pie"/>
+            </ActivitiesCard>
+            <ActivitiesCard class="col-span-2" title="recent orders" description="">
+                <DataTable :value="$props.recent_orders" tableStyle="min-width: 50rem">
+                    <Column field="id" header="id">
+                        <template #body="{ data: order }">
+                            {{ order.id }}
+                        </template>
+                    </Column>
+                    <Column field="status" header="Status">
+                        <template #body="{ data: order }">
+                        <span
+                            :class="[
+                                'px-1 py-px text-xs rounded-full inline-flex items-center justify-center',
+                                {
+                                    'bg-green-500 text-green-950':
+                                        order.status == 'completed',
+                                },
+                                {
+                                    'bg-amber-600 text-white':
+                                        order.status == 'pending',
+                                },
+                                {
+                                    'bg-sky-500 text-blue-800':
+                                        order.status == 'processing',
+                                },
+                                {
+                                    'bg-red-500 text-white':
+                                        order.status == 'refunded',
+                                },
+                            ]"
+                        >
+                            {{ order.status }}
+                        </span>
+                        </template>
+                    </Column>
+                    <Column field="total" header="Amount (XAF)">
+                        <template #body="{ data: order }">
+                            FCFA {{ order.total }}
+                        </template>
+                    </Column>
+                </DataTable>
+            </ActivitiesCard>
         </div>
     </div>
 </template>

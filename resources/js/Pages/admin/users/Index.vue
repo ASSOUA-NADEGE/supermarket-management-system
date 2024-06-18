@@ -5,7 +5,12 @@ import Button from "primevue/button"
 import Avatar from "primevue/avatar"
 import DataTable from "primevue/datatable";
 import Column from "primevue/column"
-import {Link} from "@inertiajs/vue3"
+import {Link, router} from "@inertiajs/vue3"
+import ConfirmDialog from "primevue/confirmdialog";
+import {useConfirm} from "primevue/useconfirm";
+
+
+const confirm = useConfirm();
 
 defineOptions({
     layout: [DefaultLayout, AdminLayout]
@@ -13,6 +18,22 @@ defineOptions({
 defineProps<{
     users: any
 }>()
+
+function confirming(id: string | number) {
+    confirm.require({
+        message: `Are you sure you want delete user ${id}`,
+        header: "Danger Zone",
+        icon: "pi pi-info-circle",
+        acceptLabel: "delete",
+        rejectClass: "p-button-secondary p-button-outlined",
+        acceptClass: "p-button-danger",
+        accept: () => {
+            router.delete(route(`/admin/users/${id}`))
+        },
+        reject: () => {
+        },
+    })
+}
 </script>
 
 <template>
@@ -44,9 +65,7 @@ defineProps<{
                         <Link :href="route('admin.users.edit', user)">
                             <Button outlined size="small">Edit</Button>
                         </Link>
-                        <Link>
-                            <Button outlined size="small" severity="danger">Delete</Button>
-                        </Link>
+                        <Button @click="confirming(user.id)" outlined size="small" severity="danger">Delete</Button>
                     </div>
                 </template>
             </Column>
