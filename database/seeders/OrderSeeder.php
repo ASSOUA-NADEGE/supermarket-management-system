@@ -2,6 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\Order;
+use App\Models\Product;
+use Carbon\Carbon;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -12,10 +15,11 @@ class OrderSeeder extends Seeder
      */
     public function run(): void
     {
-        Order::create([
-
-        ])->attach([
-
-        ]);
+        Order::factory(30)
+            ->hasAttached(
+                Product::query()->inRandomOrder()->limit(rand(3, 7))->get(),
+                ['quantity' => rand(3, 7)]
+            )
+            ->create();
     }
 }
