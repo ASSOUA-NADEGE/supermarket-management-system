@@ -24,7 +24,7 @@ class OrderFactory extends Factory
 
         return [
             'vendor_id' => $user->id,
-            'created_at' => $this->faker->dateTimeBetween(Carbon::parse('-2 months'), $end),
+            'created_at' => $this->faker->dateTimeBetween(Carbon::parse('-12 months'), $end),
         ];
     }
 }
