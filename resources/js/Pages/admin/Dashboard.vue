@@ -10,6 +10,7 @@ import { differenceInHours } from "date-fns/differenceInHours";
 import { differenceInDays } from "date-fns/differenceInDays";
 import { differenceInWeeks } from "date-fns/differenceInWeeks";
 import { differenceInMonths } from "date-fns/differenceInMonths";
+import Button from "primevue/button"
 
 defineOptions({
     layout: [DefaultLayout,AdminLayout]
@@ -128,7 +129,6 @@ const cards = reactive([
                     </div>
                 </template>
             </Card>
-            <CardInfo v-for="i in 3" class="rounded-none col-span-3 md:col-span-1"></CardInfo>
             <SalesChart class="rounded-none col-span-3" />
             <ActivitiesCard v-for="(i,index) in 5" class="col-span-3 md:col-span-1" :class="{'md:col-span-2 md:row-span-2 col-span-3':index === 0,'md:col-span-2 col-span-3':index===4}" />
         </div>

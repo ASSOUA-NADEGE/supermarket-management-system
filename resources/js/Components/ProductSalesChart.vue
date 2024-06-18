@@ -6,7 +6,7 @@
     </Card>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import {ref, onMounted} from "vue";
 import Chart from 'primevue/chart';
 import Card from "primevue/card"
@@ -16,6 +16,10 @@ onMounted(() => {
     chartOptions.value = setChartOptions();
 });
 
+const { labels,data} = defineProps<{
+    labels: any,
+    data:any
+}>()
 const chartData = ref();
 const chartOptions = ref();
 
@@ -23,10 +27,10 @@ const setChartData = () => {
     const documentStyle = getComputedStyle(document.body);
 
     return {
-        labels: ['A', 'B', 'C'],
+        labels: labels,
         datasets: [
             {
-                data: [540, 325, 702],
+                data: data ,
                 backgroundColor: [documentStyle.getPropertyValue('--cyan-500'), documentStyle.getPropertyValue('--orange-500'), documentStyle.getPropertyValue('--gray-500')],
                 hoverBackgroundColor: [documentStyle.getPropertyValue('--cyan-400'), documentStyle.getPropertyValue('--orange-400'), documentStyle.getPropertyValue('--gray-400')]
             }
@@ -49,4 +53,5 @@ const setChartOptions = () => {
         }
     };
 };
+
 </script>

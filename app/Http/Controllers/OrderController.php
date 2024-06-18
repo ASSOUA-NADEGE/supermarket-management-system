@@ -44,7 +44,7 @@ class OrderController extends Controller
                 AttachCartProducts::class,
                 DecrementOrderProductsStock::class,
             ])
-            ->thenReturn(back()->with('flash', 'Order created successfully!'));
+            ->thenReturn(back()->with('toastc', 'Order created successfully!'));
     }
 
     /**

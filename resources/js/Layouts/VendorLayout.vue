@@ -59,7 +59,7 @@ const links = [
                 </template>
                 <template #end>
                     <div class="flex items-center gap-4 px-2">
-                        <Button badge="1" badge-severity="danger" severity="secondary" icon="pi pi-bell"></Button>
+                        <Button  badge-severity="danger" severity="secondary" icon="pi pi-bell"></Button>
                         <UserBadge />
                     </div>
                 </template>

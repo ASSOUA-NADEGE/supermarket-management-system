@@ -21,7 +21,11 @@ class VendorController extends Controller
             ->through([GetYearlySales::class])
             ->thenReturn(fn (Builder $orders) => $orders);
 
-        return inertia('vendor/Dashboard', compact('orders', 'chart'));
+        $pie = collect(Category::all())->map(function($category){
+            return $category->products->count();
+        });
+        $categories = Category::all()->pluck('name');
+        return inertia('vendor/Dashboard', compact('orders', 'chart','pie','categories'));
     }
 
     public function createOrder()

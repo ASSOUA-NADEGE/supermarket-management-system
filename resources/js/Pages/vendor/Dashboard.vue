@@ -20,7 +20,7 @@ import DefaultLayout from "@/Layouts/DefaultLayout.vue";
 defineOptions({
     layout: [DefaultLayout, VendorLayout],
 });
-const props = defineProps<{ orders: Array<Record<string, any>> }>();
+const props = defineProps<{ orders: Array<Record<string, any>>,categories: String[],pie: Number[]}>();
 
 const cards = reactive([
     {
@@ -141,7 +141,7 @@ const cards = reactive([
                 </template>
             </Card>
             <SalesChart class="col-span-2" />
-            <ProductSalesChart />
+            <ProductSalesChart  :labels="categories" :data="pie"/>
         </div>
         <Card class="rounded-none">
             <template #content>

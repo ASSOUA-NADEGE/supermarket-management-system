@@ -15,11 +15,12 @@ class UserSeeder extends Seeder
     {
         collect([
             'admin' => [
-                ['name' => 'minister', 'password' => '!password', 'email' => 'mundestephane13@gmail.com'],
-                ['name' => 'pagouel', 'password' => 'johntheboss', 'email' => 'johnthbss@gmail.com']
+                ['name' => 'nadege', 'password' => 'assoua']
+
             ],
             'vendor' => [
-                ['name' => 'nadege', 'password' => 'assoua']
+                ['name' => 'vendor1', 'password' => 'vendor1', 'email' => 'vendor1@gmail.com'],
+                ['name' => 'vendor2', 'password' => 'vendor2', 'email' => 'vendor2@gmail.com']
             ]
         ])->each(function ($users, $role) {
             User::factory()

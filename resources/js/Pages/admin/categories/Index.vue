@@ -9,16 +9,16 @@ import ConfirmDialog from "primevue/confirmdialog";
 import {useConfirm} from "primevue/useconfirm";
 const confirm = useConfirm();
 
-function confirming(){
+function confirming(id){
     confirm.require({
         message: "Are you sure you want delete",
         header: "Danger Zone",
         icon: "pi pi-info-circle",
-        acceptLabel: "Logout",
+        acceptLabel: "delete",
         rejectClass: "p-button-secondary p-button-outlined",
         acceptClass: "p-button-danger",
         accept: () => {
-            router.delete(route('admin.categories.delete'))
+            router.delete(route(`/admin/categories/${id}`))
         },
         reject: () => {},
     })
@@ -58,7 +58,7 @@ defineProps<{
             <Column header="Action">
                 <template #body="{data: category}">
                     <div class="space-x-2">
-                        <Button outlined severity="danger">Delete</Button>
+                        <Button @click="confirming(category.id)" outlined severity="danger">Delete</Button>
                     </div>
                 </template>
             </Column>

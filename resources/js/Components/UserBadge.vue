@@ -20,7 +20,7 @@ const confirm1 = () => {
         rejectLabel: "Cancel",
         acceptLabel: "Logout",
         rejectClass: "p-button-secondary p-button-outlined",
-        acceptClass: "p-button-danger",
+        acceptClass: "p-button-dangerweb",
         accept: () => {
             router.post("/logout");
         },
