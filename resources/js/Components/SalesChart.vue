@@ -21,7 +21,7 @@ const pageProps = usePage().props
 const chartData = {
     labels: Object.keys(pageProps.chart),
     datasets: [{
-        label: 'Total Prices',
+        label: 'Total Sales',
         data: Object.values(pageProps.chart)
     }]
 }
